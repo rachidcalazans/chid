@@ -5,6 +5,10 @@ Chid is an assistant to help your day-to-day life. It can be used in some instal
 
 After clone this repository and enter in the project directory run:
 
+    $ gem install bundler # If you do not has installed
+
+    $ bundle install
+
     $ rake init
 
 That command will configura the Chid app.  
