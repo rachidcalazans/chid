@@ -107,7 +107,7 @@ task :init do
   print "Appending the chid alias on your "
   print ".bashrc\n\n".blue
   File.open(File.join(path, '.bashrc'), 'a') do |f|
-  #  f.write "\nalias chid='rake -f #{chid_path}/Rakefile'"
+    f.write "\nalias chid='rake -f #{chid_path}/Rakefile'"
   end
 
   print "Configuration done!\n\n"
