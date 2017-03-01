@@ -101,8 +101,17 @@ desc 'Init the initial config for Chid app'
 task :init do
   print  "Configurating the Chid app...\n\n"
   chid_path = Dir.pwd
-  username = %x[echo $(logname)]
-  path = "/Users/#{username.strip}/"
+  platform = %x[echo $OSTYPE]
+
+  if  platform =~ /linux/
+    username = %x[echo $USER]
+    path = "/home/#{username.strip}/"
+  end
+
+  if  platform =~ /darwin/
+    username = %x[echo $(logname)]
+    path = "/Users/#{username.strip}/"
+  end
 
   print "Appending the chid alias on your "
   print ".bashrc\n\n".blue
