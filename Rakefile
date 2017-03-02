@@ -82,18 +82,18 @@ task :news do
     print "> "
     option = STDIN.gets
     if (/^q/.match(option))
-        NewsApi.reset
-      end
+      NewsApi.reset
+    end
 
-      if (/^n/.match(option))
-        NewsApi.increase_page_by_1
-        Rake::Task['news'].execute
-      end
+    if (/^n/.match(option))
+      NewsApi.increase_page_by_1
+      Rake::Task['news'].execute
+    end
 
-      if (/^p/.match(option))
-        NewsApi.deacrease_page_by_1
-        Rake::Task['news'].execute
-      end
+    if (/^p/.match(option))
+      NewsApi.deacrease_page_by_1
+      Rake::Task['news'].execute
+    end
   end
 end
 
@@ -101,7 +101,7 @@ desc 'Init the initial config for Chid app'
 task :init do
   print  "Configurating the Chid app...\n\n"
   chid_path = Dir.pwd
-  platform = %x[echo $OSTYPE]
+  platform = RUBY_PLATFROM
 
   if  platform =~ /linux/
     username = %x[echo $USER]
@@ -241,44 +241,57 @@ namespace :install do
 
   desc 'Install RVM'
   task :rvm do
-    system('\curl -sSL https://get.rvm.io | bash')
-  end
+    platform = RUBY_PLATFROM
+    if  platform =~ /linux/
+      system('sudo apt-get install curl')
+    end
+    if
+      system('\curl -sSL https://get.rvm.io | bash')
+    end
 
-  desc 'Install Postgres'
-  task :postgres do
-     platform = %x[echo $OSTYPE]
+    desc 'Install Postgres'
+    task :postgres do
+      platform = RUBY_PLATFROM
 
-     if  platform =~ /linux/
-       system('sudo apt-get install postgresql postgresql-contrib')
-     end
+      if  platform =~ /linux/
+        system('sudo apt-get install postgresql postgresql-contrib')
+      end
 
-     if  platform =~ /darwin/
-       system('brew install postgres')
-     end
-  end
+      if  platform =~ /darwin/
+        system('brew install postgres')
+      end
+    end
 
-  desc 'Install Node'
-  task :node do
-    platform = %x[echo $OSTYPE]
+    desc 'Install Node'
+    task :node do
+      platform = RUBY_PLATFROM
 
-     if  platform =~ /linux/
-       system('sudo apt-get install nodejs')
-     end
+      if  platform =~ /linux/
+        system('sudo apt-get install nodejs')
+      end
 
-     if  platform =~ /darwin/
-       system('brew install node')
-     end
-  end
+      if  platform =~ /darwin/
+        system('brew install node')
+      end
+    end
 
-  desc 'Install YADR Dotfiles'
-  task :dotfiles do
-    system('sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"')
+    desc 'Install YADR Dotfiles'
+    task :dotfiles do
+      platform = RUBY_PLATFROM
 
-    puts 'Updating...'
-    username = %x[echo $(logname)]
-    path = "/Users/#{username.strip}/.yadr/"
-    Dir.chdir path
-    system('git pull --rebase')
-    system('rake update')
+      if  platform =~ /linux/
+        system('sudo apt-get install curl')
+        system('sudo apt-get install zsh')
+        system('sudo apt-get install git-core')
+      end
+      system('sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"')
+
+      puts 'Updating...'
+      username = %x[echo $(logname)]
+      path = "/Users/#{username.strip}/.yadr/"
+      Dir.chdir path
+      system('git pull --rebase')
+      system('rake update')
+    end
   end
 end
