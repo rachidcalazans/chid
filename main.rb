@@ -3,8 +3,9 @@ class Main
   REGEX_ACTIONS  = {
     help: [/help/, /:h/],
     news: [/news/],
-    currency: [/currency/, /current currency/],
-    convert: [/convert/],
+    :'currency:list' => [/list/, /list currency/, /^currency/],
+    :'currency:convert' => [/^conv.*\s(\d*.?\d+?)\s(\w{3})\sto\s(\w{3})/, /^currency/],
+    :'currency:current' => [/current/, /^currency/, /current currency/],
     rvm: [/rvm/],
     postgres: [/postgres/, /postgre/, /postgresql/, /db/],
     dotfiles: [/dotfile/, /dotfiles/, /yard/],
@@ -18,12 +19,15 @@ class Main
 
 
   def self.init(line)
-    action = nil
+    action   = nil
+    captures_hash = {}
+
     actions = REGEX_ACTIONS.select do |a, regexs|
       has_action = false
       regexs.each do |r|
         matched = r.match line
         unless matched.nil?
+          captures_hash[a] = matched.captures
           has_action = true
           break
         end
@@ -40,19 +44,23 @@ class Main
       action = choose_multiple_action(actions)
     end
 
-    action
-
+    { action: action, captures: captures_hash[action] }
   end
 
   def self.choose_multiple_action(actions)
     puts "You are trying to execute #{actions.count} actions at once."
     puts "Please choose:"
+    puts "0 - none"
     actions.each_with_index do |a, i|
       puts "#{i + 1} - #{a[0]}"
     end
     print "> "
-    choose = STDIN.gets
-    choose = choose.to_i - 1
+    choose = STDIN.gets.to_i
+    if choose == 0
+      puts "Canceled. Let's try another command"
+      return nil
+    end
+    choose = choose - 1
     actions.keys[choose]
   end
 

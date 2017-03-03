@@ -48,15 +48,21 @@ class CurrencyApi
   }
 
   def self.convert(options = {})
-    amount = options.fetch(:amount, 1)
-    from   = options.fetch(:from, :USD)
-    to     = options.fetch(:to, :BRL)
+    amount = options.fetch(:amount, 1).to_f
+    from   = options.fetch(:from, :USD).to_sym
+    to     = options.fetch(:to, :BRL).to_sym
 
     request = HTTP.get("http://www.apilayer.net/api/live?access_key=#{API_TOKEN}")
     json    = JSON.parse request
 
-    to_amount = json['quotes']["USD#{to}"]
-    to_amount * amount
+    to_amount   = json['quotes']["USD#{to}"]
+    from_amount = json['quotes']["USD#{from}"]
+
+    if to == :USD
+      amount / from_amount
+    else
+      to_amount * amount
+    end
   end
 
 end

@@ -75,20 +75,30 @@ task :chid do
       break
     end
 
-    action = Main.init(line)
+    result = Main.init(line)
+
+    action   = result[:action]
+    captures = result[:captures]
 
     if (action == :news)
       Rake::Task['news'].execute
       puts "\nDone! Something else?"
     end
 
-    if (action == :currency)
-      Rake::Task['currency'].execute
+    if (action == :'currency:list')
+      Rake::Task['currency:list'].execute
       puts "\nDone! Something else?"
     end
 
-    if (action == :convert)
-      Rake::Task['convert'].execute
+    if (action == :'currency:current')
+      Rake::Task['currency:current'].execute
+      puts "\nDone! Something else?"
+    end
+
+    if (action == :'currency:convert')
+      amount, from, to = captures
+      options = {amount: amount, from: from, to: to}
+      Rake::Task['currency:convert'].execute(options)
       puts "\nDone! Something else?"
     end
 
@@ -225,16 +235,27 @@ namespace :install do
   end
 end
 
-desc 'Convert USD to BRL'
-task :convert do
-  currency = CurrencyApi.convert(amount: 10)
-  puts "The amount converted to BRL is: #{currency}"
-end
+namespace :currency do
 
-desc 'Get the currency conversion for USD to BRL'
-task :currency do
-  currency = CurrencyApi.convert()
-  puts "USD is #{currency} BRL"
+  desc 'Show all types of currencies'
+  task :list do
+    types = CurrencyApi::SOURCES
+    puts "Types available:\n\n"
+    types.each { |k, v| puts "#{k} => #{v}"}
+  end
+
+  desc 'You can convert an amount between types. Ex.: convert 10 USD to BRL'
+  task :convert, [:amount, :from, :to] do |t, args|
+    currency = CurrencyApi.convert(args)
+    puts "The converted #{args[:from]} to #{args[:to]} is: #{currency}"
+  end
+
+  desc 'Get the current conversion for USD to BRL'
+  task :current do
+    currency = CurrencyApi.convert()
+    puts "USD is #{currency} BRL"
+  end
+
 end
 
 desc 'List all news'
