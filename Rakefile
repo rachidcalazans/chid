@@ -160,15 +160,8 @@ task :chid do
     end
 
     if (action == :help)
-      puts "I can help you with:"
-      puts "  - news        -> List all news on web"
-      puts "  - currency    -> Show the current currency for USD to BRL"
-      puts "  - convert     -> Convert some amount from USD to BRL"
-      puts "  - rvm         -> Installing the RVM"
-      puts "  - postgres    -> Installing and Run the Postgres"
-      puts "  - node        -> Installing the Node"
-      puts "  - dotfiles    -> Installing the YARD Dotfiles"
-      puts "  - workstation -> Open all application you use every day"
+      Dir.chdir chid_config.chid_rake_path
+      system("rake -T")
       puts "\nTell me what you need"
     end
 

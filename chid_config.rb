@@ -1,8 +1,6 @@
-require 'singleton'
 require 'yaml'
 
 class ChidConfig
-  #include Singleton
 
   attr_reader :chid_path, :home_path, :chid_config_path
 
@@ -36,6 +34,11 @@ class ChidConfig
 
   def platform
     %x{echo $(uname -s)}.strip
+  end
+
+  def chid_rake_path
+    data = YAML.load_file chid_config_path
+    data[:chid][:chid_path]
   end
 
   def all_workstations
@@ -86,28 +89,13 @@ class ChidConfig
   def create_an_empty_chid_config_file
     base_config = {
       chid: {
+        chid_path: chid_path,
         workstations: {}
       }
     }
     File.open(chid_config_path, 'w') do |file|
       YAML.dump(base_config, file)
     end
-  end
-
-  # Not using
-  def create_os_info
-    os_info = {
-      os_info: {
-        platform: platform,
-        username: username
-      }
-    }
-
-    chid_config_path = File.join(home_path, '.chid.config')
-    File.open(chid_config_path, 'w') do |file|
-      YAML.dump(os_info, file)
-    end
-
   end
 
 end
