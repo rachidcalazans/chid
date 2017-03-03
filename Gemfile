@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Tasks runner
+gem 'rake'
+
 # Simple HTTP request
 gem 'http'
 
