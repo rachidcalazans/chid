@@ -80,6 +80,15 @@ task :chid do
     action   = result[:action]
     captures = result[:captures]
 
+    prompt = TTY::Prompt.new(help_color: :green)
+    confirm_install = -> (name, &block) {
+      if  prompt.yes?("Can I install the #{name}?")
+        block.()
+      else
+        puts "\nNo problem. What do you need?"
+      end
+    }
+
     if (action == :news)
       Rake::Task['news'].execute
       puts "\nDone! Something else?"
@@ -103,23 +112,31 @@ task :chid do
     end
 
     if (action == :rvm)
-      Rake::Task['install:rvm'].execute
-      puts "\nRVM installed! Something else?"
+      confirm_install.('RVM') do
+          Rake::Task['install:rvm'].execute
+          puts "\nRVM installed! Something else?"
+      end
     end
 
     if (action == :postgres)
-      Rake::Task['install:postgres'].execute
-      puts "\nPostgres installed! Something else?"
+      confirm_install.('Postgres') do
+        Rake::Task['install:postgres'].execute
+        puts "\nPostgres installed! Something else?"
+      end
     end
 
     if (action == :node)
-      Rake::Task['install:node'].execute
-      puts "\nNode installed! Something else?"
+      confirm_install.('Node') do
+        Rake::Task['install:node'].execute
+        puts "\nNode installed! Something else?"
+      end
     end
 
     if (action == :dotfiles)
-      Rake::Task['install:dotfiles'].execute
-      puts "\nDotfiles installed! Something else?"
+      confirm_install.('YADR Dotfiles') do
+        Rake::Task['install:dotfiles'].execute
+        puts "\nDotfiles installed! Something else?"
+      end
     end
 
     if (action == :'workstation:list')
