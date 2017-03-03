@@ -1,7 +1,3 @@
-require_relative 'main'
-require_relative 'news_api'
-require_relative 'currency_api'
-
 class String
   def black;          "\e[30m#{self}\e[0m" end
   def red;            "\e[31m#{self}\e[0m" end
@@ -28,96 +24,22 @@ class String
   def reverse_color;  "\e[7m#{self}\e[27m" end
 end
 
+require_relative 'chid_config'
+require_relative 'main'
+require_relative 'news_api'
+require_relative 'currency_api'
+require 'yaml'
+
+chid_config = ChidConfig.new
+
 task :default => :chid
 
-desc 'Open all Applications for workstation'
-task :workstation do
-  system('open -a "safari"')
-  system('open -a "telegram desktop"')
-  system('open -a "slack"')
-  system('open -a "android studio"')
-  system('open -a "xcode"')
-  system('open -a "spotify"')
-  system('open -a "messages"')
-  system('open -a "tomato one"')
-  system('open -a "zonebox"')
-end
-
-desc 'Convert USD to BRL'
-task :convert do
-  currency = CurrencyApi.convert(amount: 10)
-  puts "The amount converted to BRL is: #{currency}"
-end
-
-desc 'Get the currency conversion for USD to BRL'
-task :currency do
-  currency = CurrencyApi.convert()
-  puts "USD is #{currency} BRL"
-end
-
-desc 'List all news'
-task :news do
-  articles = NewsApi.articles
-
-  #articles.select { |a| /ruby/.match(a.title) }
-  articles.each do |a|
-    published_at = a.publishedAt.nil? ? 'unkown' : a.publishedAt.strftime("%B %d, %Y")
-    print "\n"
-    print "--- #{a.title} ---".blue
-    print "\n"
-    print "  Posted #{published_at} by ".brown
-    print "#{a.author}".green
-    print "\n\n"
-    print "  #{a.description}"
-    print "\n\n"
-    print "  Link: "
-    print "#{a.url}".cyan.underline
-    print "\n"
-  end
-
-  puts "\n#{NewsApi.current_page} of #{NewsApi.total_pages}"
-
-  if NewsApi.total_pages > 1
-    puts "\nPrevious(p) Next(n) Quit(q):"
-    print "> "
-    option = STDIN.gets
-    if (/^q/.match(option))
-      NewsApi.reset
-    end
-
-    if (/^n/.match(option))
-      NewsApi.increase_page_by_1
-      Rake::Task['news'].execute
-    end
-
-    if (/^p/.match(option))
-      NewsApi.deacrease_page_by_1
-      Rake::Task['news'].execute
-    end
-  end
-end
-
-desc 'Init the initial config for Chid app'
+desc 'Initial configuration for Chid app'
 task :init do
+  #r = %x{find ~/ -name ".chid.config"}.strip
   print  "Configurating the Chid app...\n\n"
-  chid_path = Dir.pwd
-  platform = RUBY_PLATFROM
 
-  if  platform =~ /linux/
-    username = %x[echo $USER]
-    path = "/home/#{username.strip}/"
-  end
-
-  if  platform =~ /darwin/
-    username = %x[echo $(logname)]
-    path = "/Users/#{username.strip}/"
-  end
-
-  print "Appending the chid alias on your "
-  print ".bashrc\n\n".blue
-  File.open(File.join(path, '.bashrc'), 'a') do |f|
-    f.write "\nalias chid='rake -f #{chid_path}/Rakefile'"
-  end
+  chid_config.configure
 
   print "Configuration done!\n\n"
 
@@ -133,29 +55,26 @@ task :init do
   print "command works you must reload your .bashrc\n\n"
 
   print "To reload your .bashrc you can run: "
-  print "source #{path}.bashrc".blue
+  print "source #{chid_config.home_path}.bashrc".blue
 
-  print "\n\nInitializing the chid app..\n\n"
-  Rake::Task['chid'].execute
+  #print "\n\nInitializing the chid app..\n\n"
+  #Rake::Task['chid'].execute
 end
 
-desc 'Init the Chid app'
+desc 'Start the Chid app'
 task :chid do
-  #ruby 'main.rb'
-  #Main.init
-  sh 'echo Hello $(logname)', verbose: false
+  puts "Hello #{chid_config.username}"
   puts "\nHow can I help you?"
 
   loop do
     print "> "
     line = STDIN.gets
-    if line =~ /^:q/ || line =~ /^bye/ || line =~ /^quit/
+    if line =~ /^:q/ || line =~ /^bye/ || line =~ /^quit/ || line =~ /^exit/ 
       puts "Bye Bye"
       break
     end
-    action = Main.init(line)
 
-    #puts "Choose action: #{action}"
+    action = Main.init(line)
 
     if (action == :news)
       Rake::Task['news'].execute
@@ -241,57 +160,120 @@ namespace :install do
 
   desc 'Install RVM'
   task :rvm do
-    platform = RUBY_PLATFROM
-    if  platform =~ /linux/
+
+    config.on_linux do
       system('sudo apt-get install curl')
     end
-    if
-      system('\curl -sSL https://get.rvm.io | bash')
+
+    system('\curl -sSL https://get.rvm.io | bash')
+
+  end
+
+  desc 'Install Postgres'
+  task :postgres do
+    chid_config.on_linux do
+      system('sudo apt-get install postgresql postgresql-contrib')
     end
 
-    desc 'Install Postgres'
-    task :postgres do
-      platform = RUBY_PLATFROM
+    chid_config.on_osx do
+      system('brew install postgres')
+    end
+  end
 
-      if  platform =~ /linux/
-        system('sudo apt-get install postgresql postgresql-contrib')
-      end
-
-      if  platform =~ /darwin/
-        system('brew install postgres')
-      end
+  desc 'Install Node'
+  task :node do
+    chid_config.on_linux do
+      system('sudo apt-get install nodejs')
     end
 
-    desc 'Install Node'
-    task :node do
-      platform = RUBY_PLATFROM
+    chid_config.on_osx do
+      system('brew install node')
+    end
+  end
 
-      if  platform =~ /linux/
-        system('sudo apt-get install nodejs')
-      end
-
-      if  platform =~ /darwin/
-        system('brew install node')
-      end
+  desc 'Install YADR Dotfiles'
+  task :dotfiles do
+    chid_config.on_linux do
+      system('sudo apt-get install curl')
+      system('sudo apt-get install zsh')
+      system('sudo apt-get install git-core')
     end
 
-    desc 'Install YADR Dotfiles'
-    task :dotfiles do
-      platform = RUBY_PLATFROM
+    system('sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"')
 
-      if  platform =~ /linux/
-        system('sudo apt-get install curl')
-        system('sudo apt-get install zsh')
-        system('sudo apt-get install git-core')
-      end
-      system('sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"')
+    puts 'Updating YARD...'
+    path = "#{chid_config.home_path}/.yadr/"
+    Dir.chdir path
+    system('git pull --rebase')
+    system('rake update')
+  end
+end
 
-      puts 'Updating...'
-      username = %x[echo $(logname)]
-      path = "/Users/#{username.strip}/.yadr/"
-      Dir.chdir path
-      system('git pull --rebase')
-      system('rake update')
+desc 'Open all Applications for workstation'
+task :workstation do
+  chid_config.on_osx do
+    system('open -a "safari"')
+    system('open -a "telegram desktop"')
+    system('open -a "slack"')
+    system('open -a "android studio"')
+    system('open -a "xcode"')
+    system('open -a "spotify"')
+    system('open -a "messages"')
+    system('open -a "tomato one"')
+    system('open -a "zonebox"')
+  end
+end
+
+desc 'Convert USD to BRL'
+task :convert do
+  currency = CurrencyApi.convert(amount: 10)
+  puts "The amount converted to BRL is: #{currency}"
+end
+
+desc 'Get the currency conversion for USD to BRL'
+task :currency do
+  currency = CurrencyApi.convert()
+  puts "USD is #{currency} BRL"
+end
+
+desc 'List all news'
+task :news do
+  articles = NewsApi.articles
+
+  #articles.select { |a| /ruby/.match(a.title) }
+  articles.each do |a|
+    published_at = a.publishedAt.nil? ? 'unkown' : a.publishedAt.strftime("%B %d, %Y")
+    print "\n"
+    print "--- #{a.title} ---".blue
+    print "\n"
+    print "  Posted #{published_at} by ".brown
+    print "#{a.author}".green
+    print "\n\n"
+    print "  #{a.description}"
+    print "\n\n"
+    print "  Link: "
+    print "#{a.url}".cyan.underline
+    print "\n"
+  end
+
+  puts "\n#{NewsApi.current_page} of #{NewsApi.total_pages}"
+
+  if NewsApi.total_pages > 1
+    puts "\nPrevious(p) Next(n) Quit(q):"
+    print "> "
+    option = STDIN.gets
+    if (/^q/.match(option))
+      NewsApi.reset
+    end
+
+    if (/^n/.match(option))
+      NewsApi.increase_page_by_1
+      Rake::Task['news'].execute
+    end
+
+    if (/^p/.match(option))
+      NewsApi.deacrease_page_by_1
+      Rake::Task['news'].execute
     end
   end
 end
