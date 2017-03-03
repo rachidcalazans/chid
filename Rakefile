@@ -310,6 +310,10 @@ namespace :workstation do
       chid_config.on_osx do
         system("open -a '#{app_name}'")
       end
+
+      chid_config.on_linux do
+        system("#{app_name}")
+      end
     end
   end
 
