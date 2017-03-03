@@ -5,3 +5,6 @@ gem 'http'
 
 # Debug
 gem 'pry'
+
+# Prompt utils
+gem 'tty-prompt'

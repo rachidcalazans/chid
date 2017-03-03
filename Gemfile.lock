@@ -6,6 +6,7 @@ GEM
     coderay (1.1.1)
     domain_name (0.5.20170223)
       unf (>= 0.0.5, < 1.0.0)
+    equatable (0.5.0)
     http (2.2.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -16,15 +17,27 @@ GEM
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     method_source (0.8.2)
+    necromancer (0.4.0)
+    pastel (0.7.1)
+      equatable (~> 0.5.0)
+      tty-color (~> 0.4.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
     slop (3.6.0)
+    tty-color (0.4.2)
+    tty-cursor (0.4.0)
+    tty-prompt (0.11.0)
+      necromancer (~> 0.4.0)
+      pastel (~> 0.7.0)
+      tty-cursor (~> 0.4.0)
+      wisper (~> 1.6.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
+    wisper (1.6.1)
 
 PLATFORMS
   ruby
@@ -32,6 +45,7 @@ PLATFORMS
 DEPENDENCIES
   http
   pry
+  tty-prompt
 
 BUNDLED WITH
    1.14.5
