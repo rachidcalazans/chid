@@ -38,6 +38,37 @@ class ChidConfig
     %x{echo $(uname -s)}.strip
   end
 
+  def all_workstations
+    data = YAML.load_file chid_config_path
+    data[:chid][:workstations]
+  end
+
+  def destroy_workstations(workstations = [])
+    chid_config_path = File.join(home_path, '.chid.config')
+
+    data = YAML.load_file chid_config_path
+
+    workstations.each do |w|
+      data[:chid][:workstations].delete_if { |key, value| key == w }
+    end
+
+    File.open(chid_config_path, 'w') do |file|
+      YAML.dump(data, file)
+    end
+  end
+
+  def create_workstation(name, apps = [])
+    chid_config_path = File.join(home_path, '.chid.config')
+
+    data = YAML.load_file chid_config_path
+
+    data[:chid][:workstations][:"#{name}"] = apps
+
+    File.open(chid_config_path, 'w') do |file|
+      YAML.dump(data, file)
+    end
+  end
+
   private
   def create_chid_alias_on_bashrc
     print "Creating the chid alias on your "
@@ -53,7 +84,14 @@ class ChidConfig
   end
 
   def create_an_empty_chid_config_file
-    File.open(chid_config_path, 'w')
+    base_config = {
+      chid: {
+        workstations: {}
+      }
+    }
+    File.open(chid_config_path, 'w') do |file|
+      YAML.dump(base_config, file)
+    end
   end
 
   # Not using

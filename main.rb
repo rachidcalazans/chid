@@ -9,7 +9,11 @@ class Main
     postgres: [/postgres/, /postgre/, /postgresql/, /db/],
     dotfiles: [/dotfile/, /dotfiles/, /yard/],
     node: [/node/, /nodejs/],
-    workstation: [/workstation/, /work/]
+    :'workstation:list' =>  [/workstation/, /work/, /list/, /list workstation/, /list work/],
+    :'workstation:open' =>  [/workstation/, /work/, /open/, /open workstation/, /open work/],
+    :'workstation:create' =>  [/workstation/, /work/, /create/, /create workstation/, /create work/],
+    :'workstation:destroy' =>  [/workstation/, /work/, /destroy/, /destroy workstation/,
+                             /destroy work/, /remove/, /remove workstation/, /remove work/]
   }
 
 

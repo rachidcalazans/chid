@@ -29,6 +29,7 @@ require_relative 'main'
 require_relative 'news_api'
 require_relative 'currency_api'
 require 'yaml'
+require 'tty-prompt'
 
 chid_config = ChidConfig.new
 
@@ -69,7 +70,7 @@ task :chid do
   loop do
     print "> "
     line = STDIN.gets
-    if line =~ /^:q/ || line =~ /^bye/ || line =~ /^quit/ || line =~ /^exit/ 
+    if line =~ /^:q/ || line =~ /^bye/ || line =~ /^quit/ || line =~ /^exit/
       puts "Bye Bye"
       break
     end
@@ -111,9 +112,24 @@ task :chid do
       puts "\nDotfiles installed! Something else?"
     end
 
-    if (action == :workstation)
-      Rake::Task['workstation'].execute
-      puts "\nEverything opened! Something else?"
+    if (action == :'workstation:list')
+      Rake::Task['workstation:list'].execute
+      puts "\nSomething else?"
+    end
+
+    if (action == :'workstation:open')
+      Rake::Task['workstation:open'].execute
+      puts "\nSomething else?"
+    end
+
+    if (action == :'workstation:create')
+      Rake::Task['workstation:create'].execute
+      puts "\nSomething else?"
+    end
+
+    if (action == :'workstation:destroy')
+      Rake::Task['workstation:destroy'].execute
+      puts "\nSomething else?"
     end
 
     if (action == :help)
@@ -209,21 +225,6 @@ namespace :install do
   end
 end
 
-desc 'Open all Applications for workstation'
-task :workstation do
-  chid_config.on_osx do
-    system('open -a "safari"')
-    system('open -a "telegram desktop"')
-    system('open -a "slack"')
-    system('open -a "android studio"')
-    system('open -a "xcode"')
-    system('open -a "spotify"')
-    system('open -a "messages"')
-    system('open -a "tomato one"')
-    system('open -a "zonebox"')
-  end
-end
-
 desc 'Convert USD to BRL'
 task :convert do
   currency = CurrencyApi.convert(amount: 10)
@@ -274,6 +275,61 @@ task :news do
     if (/^p/.match(option))
       NewsApi.deacrease_page_by_1
       Rake::Task['news'].execute
+    end
+  end
+end
+
+namespace :workstation do
+
+  desc 'List all workstations'
+  task :list do
+    puts "Workstations availabbe:"
+    puts chid_config.all_workstations.keys
+  end
+
+  desc 'Destroy workstations'
+  task :destroy do
+    prompt = TTY::Prompt.new
+    workstations = chid_config.all_workstations
+    choices = workstations.keys
+    result = prompt.multi_select('Select all workstations to destroy', choices)
+
+    chid_config.destroy_workstations(result)
+    puts "\nWorkstations removed!"
+  end
+
+  desc 'Open a specific workstation'
+  task :open do
+    prompt = TTY::Prompt.new
+    workstations = chid_config.all_workstations
+    choices = workstations.keys
+    result = prompt.select('Choose a workstation to open', choices)
+
+    puts "\nOpening all Apps"
+    workstations[result.to_sym].each do |app_name|
+      chid_config.on_osx do
+        system("open -a '#{app_name}'")
+      end
+    end
+  end
+
+  desc 'Create a new workstation'
+  task :create do
+    prompt = TTY::Prompt.new
+
+    puts 'Tell me the name of the new Workstation'
+    print "> "
+    workstation_name = STDIN.gets.strip
+
+    chid_config.on_osx do
+      choices = %x{ls /Applications}.strip
+      choices = choices
+        .gsub(/\n/, ' - ')
+        .gsub('.app', '')
+        .split(' - ')
+      result = prompt.multi_select('Select all apps for that workstation?', choices)
+      chid_config.create_workstation(workstation_name, result)
+      puts "\n#{workstation_name} Workstation was created!"
     end
   end
 end
