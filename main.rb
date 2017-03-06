@@ -17,54 +17,104 @@ class Main
                              /destroy work/, /remove/, /remove workstation/, /remove work/]
   }
 
+  ActionWithArgs = Struct.new(:action, :args)
 
-  def self.init(line)
-    action   = nil
-    captures_hash = {}
+  private
+  attr_reader :chid_config
 
-    actions = REGEX_ACTIONS.select do |a, regexs|
-      has_action = false
-      regexs.each do |r|
-        matched = r.match line
-        unless matched.nil?
-          captures_hash[a] = matched.captures
-          has_action = true
-          break
-        end
-      end
-
-      has_action
-    end
-
-    not_found_msgs() if actions.empty?
-
-    if actions.count == 1
-      action = actions.keys[0]
-    elsif actions.count > 1
-      action = choose_multiple_action(actions)
-    end
-
-    { action: action, captures: captures_hash[action] }
+  public
+  def initialize(chid_config:)
+    @chid_config = chid_config
   end
 
-  def self.choose_multiple_action(actions)
-    puts "You are trying to execute #{actions.count} actions at once."
+  def init(&execute_action_block)
+    puts "Hello #{chid_config.username}"
+    msg = "How can I help you?"
+
+    run(&execute_action_block)
+  end
+
+  private
+  def fn_get_input
+    -> () {
+      print "> "
+      STDIN.gets.strip
+    }
+  end
+
+  def run(&execute_action_block)
+    input = fn_get_input.()
+    if quit_command?(input)
+      puts 'Bye Bye'
+      return
+    end
+    get_action(input, &execute_action_block)
+    run(&execute_action_block)
+  end
+
+  def quit_command?(input)
+    input =~ /^:q/ || input =~ /^bye/ || input =~ /^quit/ || input =~ /^exit/
+  end
+
+  def get_action(input, &execute_action_block)
+    actions_with_args = get_actions_with_args(input)
+    return not_found_msgs if actions_with_args.empty?
+
+    get_action_with_args(actions_with_args) do | action_with_args|
+      execute_action_block.(action_with_args.action, action_with_args.args)
+    end
+
+  end
+
+  def get_actions_with_args(input)
+    actions_with_args = REGEX_ACTIONS.collect do |action, regexs|
+      action_with_args = nil
+
+      regex_match(input: input, regexs: regexs) do |captured_args|
+        action_with_args  = ActionWithArgs.new(action, captured_args)
+      end
+      action_with_args
+    end.compact!
+  end
+
+  def regex_match(input:, regexs:, &block)
+    regexs.each do |regex|
+      matched = regex.match input
+      if matched
+        captured_args = matched.captures
+        block.(captured_args)
+        return
+      end
+    end
+  end
+
+  def get_action_with_args(actions_with_args)
+    return if actions_with_args.nil?
+
+    if actions_with_args.count > 1
+      action_with_args = choose_multiple_action(actions_with_args)
+    else
+      action_with_args = actions_with_args.first
+    end
+
+    yield action_with_args if action_with_args
+  end
+
+  def choose_multiple_action(actions_with_args)
+    puts "You are trying to execute #{actions_with_args.count} actions at once."
     puts "Please choose:"
     puts "0 - none"
-    actions.each_with_index do |a, i|
-      puts "#{i + 1} - #{a[0]}"
-    end
-    print "> "
-    choose = STDIN.gets.to_i
+    actions_with_args.each_with_index { |a, i| puts "#{i + 1} - #{a.action}" }
+    choose = fn_get_input.().to_i
     if choose == 0
-      puts "Canceled. Let's try another command"
+      puts "Ok, canceled"
       return nil
     end
     choose = choose - 1
-    actions.keys[choose]
+    actions_with_args[choose]
   end
 
-  def self.not_found_msgs()
+  def not_found_msgs()
     msgs = [
       "Sorry, I did not found any action.",
       "You should try another action. That does not exist. Sorry.",

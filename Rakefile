@@ -64,109 +64,19 @@ end
 
 desc 'Start the Chid app'
 task :chid do
-  puts "Hello #{chid_config.username}"
-  puts "\nHow can I help you?"
-
-  loop do
-    print "> "
-    line = STDIN.gets
-    if line =~ /^:q/ || line =~ /^bye/ || line =~ /^quit/ || line =~ /^exit/
-      puts "Bye Bye"
-      break
-    end
-
-    result = Main.init(line)
-
-    action   = result[:action]
-    captures = result[:captures]
-
-    prompt = TTY::Prompt.new(help_color: :green)
-    confirm_install = -> (name, &block) {
-      if  prompt.yes?("Can I install the #{name}?")
-        block.()
-      else
-        puts "\nNo problem. What do you need?"
-      end
-    }
-
-    if (action == :news)
-      Rake::Task['news'].execute
-      puts "\nDone! Something else?"
-    end
-
-    if (action == :'currency:list')
-      Rake::Task['currency:list'].execute
-      puts "\nDone! Something else?"
-    end
-
-    if (action == :'currency:current')
-      Rake::Task['currency:current'].execute
-      puts "\nDone! Something else?"
-    end
-
-    if (action == :'currency:convert')
-      amount, from, to = captures
-      options = {amount: amount, from: from, to: to}
-      Rake::Task['currency:convert'].execute(options)
-      puts "\nDone! Something else?"
-    end
-
-    if (action == :rvm)
-      confirm_install.('RVM') do
-          Rake::Task['install:rvm'].execute
-          puts "\nRVM installed! Something else?"
-      end
-    end
-
-    if (action == :postgres)
-      confirm_install.('Postgres') do
-        Rake::Task['install:postgres'].execute
-        puts "\nPostgres installed! Something else?"
-      end
-    end
-
-    if (action == :node)
-      confirm_install.('Node') do
-        Rake::Task['install:node'].execute
-        puts "\nNode installed! Something else?"
-      end
-    end
-
-    if (action == :dotfiles)
-      confirm_install.('YADR Dotfiles') do
-        Rake::Task['install:dotfiles'].execute
-        puts "\nDotfiles installed! Something else?"
-      end
-    end
-
-    if (action == :'workstation:list')
-      Rake::Task['workstation:list'].execute
-      puts "\nSomething else?"
-    end
-
-    if (action == :'workstation:open')
-      Rake::Task['workstation:open'].execute
-      puts "\nSomething else?"
-    end
-
-    if (action == :'workstation:create')
-      Rake::Task['workstation:create'].execute
-      puts "\nSomething else?"
-    end
-
-    if (action == :'workstation:destroy')
-      Rake::Task['workstation:destroy'].execute
-      puts "\nSomething else?"
-    end
-
-    if (action == :help)
-      Dir.chdir chid_config.chid_rake_path
-      system("rake -T")
-      puts "\nTell me what you need"
-    end
-
+  Main.new(chid_config: chid_config).init do |action, args|
+      rake_task = Rake::Task[action]
+      task_args = Rake::TaskArguments.new(rake_task.arg_names, args)
+      rake_task.execute(task_args)
+      puts "\nDone! What else?"
   end
+end
 
+desc 'Show all tasks availabe'
+task :help do
+  Dir.chdir chid_config.chid_rake_path
+  system("rake -T")
+  puts "\nTell me what you need"
 end
 
 desc 'Configure default windows for development'
@@ -185,9 +95,12 @@ task :tmux do
 end
 
 namespace :run do
-  desc 'Start Postgres for OSx'
+
+  desc 'Start Postgres'
   task :postgres do
-    system('postgres -D /usr/local/var/postgres')
+    chid_config.on_osx do
+      system('postgres -D /usr/local/var/postgres')
+    end
   end
 
 end
@@ -196,7 +109,6 @@ namespace :install do
 
   desc 'Install RVM'
   task :rvm do
-
     config.on_linux do
       system('sudo apt-get install curl')
     end
@@ -256,8 +168,8 @@ namespace :currency do
 
   desc 'You can convert an amount between types. Ex.: convert 10 USD to BRL'
   task :convert, [:amount, :from, :to] do |t, args|
-    currency = CurrencyApi.convert(args)
-    puts "The converted #{args[:from]} to #{args[:to]} is: #{currency}"
+    amount = CurrencyApi.convert(args)
+    puts "The converted #{args[:from]} to #{args[:to]} is: #{amount}"
   end
 
   desc 'Get the current conversion for USD to BRL'
@@ -272,7 +184,6 @@ desc 'List all news'
 task :news do
   articles = NewsApi.articles
 
-  #articles.select { |a| /ruby/.match(a.title) }
   articles.each do |a|
     published_at = a.publishedAt.nil? ? 'unkown' : a.publishedAt.strftime("%B %d, %Y")
     print "\n"
