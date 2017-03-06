@@ -37,26 +37,22 @@ task :default => :chid
 
 desc 'Initial configuration for Chid app'
 task :init do
-  #r = %x{find ~/ -name ".chid.config"}.strip
-  print  "Configurating the Chid app...\n\n"
-
-  chid_config.configure
-
-  print "Configuration done!\n\n"
-
-  print "Chid is an assistant to help your day-to-day life. It can be used in some installations, news, etc.\n\n"
-  print "You can use it without starting the app through Rake Tasks or as an app, having a greater interaction with it.\n\n"
+  print "Chid is an assistant to help your day-to-day life.\n\n"
+  print "You can use it as "
+  print "a terminal App ".green
+  print "or through "
+  print "Rake Tasks".green
+  print", having a greater interaction with it.\n\n"
 
   print "To initialize the app you can run the command: "
   print "$ rake\n".blue
   print "Or the command: "
   print "$ chid\n".blue
-  print "But for the "
+  print "But the command "
   print "$ chid ".blue
-  print "command works you must reload your .bashrc\n\n"
+  print "will work after you reload your profile\n"
 
-  print "To reload your .bashrc you can run: "
-  print "source #{chid_config.home_path}.bashrc".blue
+  chid_config.configure
 
   #print "\n\nInitializing the chid app..\n\n"
   #Rake::Task['chid'].execute

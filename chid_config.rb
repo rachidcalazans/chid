@@ -11,8 +11,12 @@ class ChidConfig
   end
 
   def configure
+    print  "\nConfigurating the Chid app...\n"
+
     create_chid_alias_on_bashrc
     create_an_empty_chid_config_file
+
+    print "\nConfiguration done!\n"
   end
 
   def username
@@ -47,8 +51,6 @@ class ChidConfig
   end
 
   def destroy_workstations(workstations = [])
-    chid_config_path = File.join(home_path, '.chid.config')
-
     data = YAML.load_file chid_config_path
 
     workstations.each do |w|
@@ -61,8 +63,6 @@ class ChidConfig
   end
 
   def create_workstation(name, apps = [])
-    chid_config_path = File.join(home_path, '.chid.config')
-
     data = YAML.load_file chid_config_path
 
     data[:chid][:workstations][:"#{name}"] = apps
@@ -74,12 +74,29 @@ class ChidConfig
 
   private
   def create_chid_alias_on_bashrc
-    print "Creating the chid alias on your "
-    print ".bashrc\n\n".blue
+    config_path = zshrc_file_exist? ? zshrc_path : bashrc_path
+    print "\nCreating the chid alias on your "
+    print "#{config_path}\n".blue
 
-    File.open(File.join(home_path, '.bashrc'), 'a') do |file|
+    File.open(config_path, 'a') do |file|
       file.write "\nalias chid='rake -f #{chid_path}/Rakefile'" unless chid_config_file_exist?
     end
+    print "\nTo reload your "
+    print "profile ".green
+    print "should run: "
+    print "source #{config_path}\n".blue
+  end
+
+  def zshrc_file_exist?
+    File.exist?(zshrc_path)
+  end
+
+  def zshrc_path
+    File.join(home_path, '.zshrc')
+  end
+
+  def bashrc_path
+    File.join(home_path, '.bashrc')
   end
 
   def chid_config_file_exist?
@@ -93,6 +110,13 @@ class ChidConfig
         workstations: {}
       }
     }
+    if chid_config_file_exist?
+      data = YAML.load_file chid_config_path
+      data[:chid][:chid_path]    = data[:chid].fetch(:chid_path, chid_path)
+      data[:chid][:workstations] = data[:chid].fetch(:workstations, {})
+      base_config = data
+    end
+
     File.open(chid_config_path, 'w') do |file|
       YAML.dump(base_config, file)
     end
