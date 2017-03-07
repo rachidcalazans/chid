@@ -57,11 +57,28 @@ end
 
 desc 'Start the Chid app'
 task :chid do
+  prompt = TTY::Prompt.new(help_color: :green)		
+  confirm_install = -> (action, &block) {		
+    matched = /^install:(.*)/.match(action)
+    return block.() unless matched
+
+    action_name = matched.captures.first
+    if  prompt.yes?("Can I install the #{action_name}?")		
+      block.()		
+    else		
+      puts "\nNo problem. What do you need?"		
+    end		
+  }
+
   Main.new(chid_config: chid_config).init do |action, args|
-      rake_task = Rake::Task[action]
-      task_args = Rake::TaskArguments.new(rake_task.arg_names, args)
+    rake_task = Rake::Task[action]
+    task_args = Rake::TaskArguments.new(rake_task.arg_names, args)
+
+    confirm_install.(action) do
       rake_task.execute(task_args)
-      puts "\nDone! What else?"
+    end
+
+    puts "\nDone! What else?"
   end
 end
 
@@ -108,16 +125,21 @@ namespace :install do
 
   desc 'Install RVM'
   task :rvm do
-    config.on_linux do
+    puts "\nInstalling the RVM..."
+
+    chid_config.on_linux do
       system('sudo apt-get install curl')
     end
 
     system('\curl -sSL https://get.rvm.io | bash')
 
+    puts "\nRVM installed successfully"
   end
 
   desc 'Install Postgres'
   task :postgres do
+    puts "\nInstalling the Postgres..."
+
     chid_config.on_linux do
       system('sudo apt-get install postgresql postgresql-contrib')
     end
@@ -125,10 +147,14 @@ namespace :install do
     chid_config.on_osx do
       system('brew install postgres')
     end
+
+    puts "\nPostgres installed successfully"
   end
 
   desc 'Install Node'
   task :node do
+    puts "\nInstalling the Node..."
+
     chid_config.on_linux do
       system('sudo apt-get install nodejs')
     end
@@ -136,10 +162,13 @@ namespace :install do
     chid_config.on_osx do
       system('brew install node')
     end
+
+    puts "\nNode installed successfully"
   end
 
   desc 'Install YADR Dotfiles'
   task :dotfiles do
+    puts "\nInstalling the YADR Dotfiles..."
     chid_config.on_linux do
       system('sudo apt-get install curl')
       system('sudo apt-get install zsh')
@@ -153,6 +182,8 @@ namespace :install do
     Dir.chdir path
     system('git pull --rebase')
     system('rake update')
+
+    puts "\nYARD Dotfiles installed successfully"
   end
 end
 

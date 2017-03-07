@@ -4,18 +4,18 @@ class Main
     help: [/help/, /:h/],
     chid_config: [/config.*/, /chid config.*/],
     news: [/news/],
-    :'currency:list' => [/list/, /list currency/, /^currency/],
-    :'currency:convert' => [/^conv.*\s(\d*.?\d+?)\s(\w{3})\sto\s(\w{3})/, /^currency/],
-    :'currency:current' => [/current/, /^currency/, /current currency/],
-    rvm: [/rvm/],
-    postgres: [/postgres/, /postgre/, /postgresql/, /db/],
-    dotfiles: [/dotfile/, /dotfiles/, /yard/],
-    node: [/node/, /nodejs/],
-    :'workstation:list' =>  [/workstation/, /work/, /list/, /list workstation/, /list work/],
-    :'workstation:open' =>  [/workstation/, /work/, /open/, /open workstation/, /open work/],
-    :'workstation:create' =>  [/workstation/, /work/, /create/, /create workstation/, /create work/],
-    :'workstation:destroy' =>  [/workstation/, /work/, /destroy/, /destroy workstation/,
-                             /destroy work/, /remove/, /remove workstation/, /remove work/]
+    :'currency:list'       => [/list/, /list currency/, /^currency/],
+    :'currency:convert'    => [/^conv.*\s(\d*.?\d+?)\s(\w{3})\sto\s(\w{3})/, /^currency/],
+    :'currency:current'    => [/current/, /^currency/, /current currency/],
+    :'install:rvm'         => [/rvm/],
+    :'install:postgres'    => [/postgres/, /postgre/, /postgresql/, /db/],
+    :'install:dotfiles'    => [/dotfile/, /dotfiles/, /yard/],
+    :'install:node'        => [/node/, /nodejs/],
+    :'workstation:list'    => [/workstation/, /work/, /list/, /list workstation/, /list work/],
+    :'workstation:open'    => [/workstation/, /work/, /open/, /open workstation/, /open work/],
+    :'workstation:create'  => [/workstation/, /work/, /create/, /create workstation/, /create work/],
+    :'workstation:destroy' => [/workstation/, /work/, /destroy/, /destroy workstation/,
+                               /destroy work/, /remove/, /remove workstation/, /remove work/]
   }
 
   ActionWithArgs = Struct.new(:action, :args)
