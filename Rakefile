@@ -53,9 +53,6 @@ task :init do
   print "will work after you reload your profile\n"
 
   chid_config.configure
-
-  #print "\n\nInitializing the chid app..\n\n"
-  #Rake::Task['chid'].execute
 end
 
 desc 'Start the Chid app'
@@ -66,6 +63,12 @@ task :chid do
       rake_task.execute(task_args)
       puts "\nDone! What else?"
   end
+end
+
+desc 'Open the .chid.config file'
+task :chid_config do
+  puts "\nOpening the .chid.config..."
+  system("vim #{chid_config.chid_config_path}")
 end
 
 desc 'Show all tasks availabe'

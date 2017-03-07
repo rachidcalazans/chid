@@ -2,6 +2,7 @@ class Main
 
   REGEX_ACTIONS  = {
     help: [/help/, /:h/],
+    chid_config: [/config.*/, /chid config.*/],
     news: [/news/],
     :'currency:list' => [/list/, /list currency/, /^currency/],
     :'currency:convert' => [/^conv.*\s(\d*.?\d+?)\s(\w{3})\sto\s(\w{3})/, /^currency/],
