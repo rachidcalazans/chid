@@ -26,7 +26,7 @@ class Main
   attr_reader :chid_config
 
   public
-  def initialize(chid_config:)
+  def initialize(chid_config)
     @chid_config = chid_config
   end
 
@@ -73,14 +73,14 @@ class Main
     actions_with_args = REGEX_ACTIONS.collect do |action, regexs|
       action_with_args = nil
 
-      regex_match(input: input, regexs: regexs) do |captured_args|
+      regex_match(input, regexs) do |captured_args|
         action_with_args  = ActionWithArgs.new(action, captured_args)
       end
       action_with_args
     end.compact!
   end
 
-  def regex_match(input:, regexs:, &block)
+  def regex_match(input, regexs, &block)
     regexs.each do |regex|
       matched = regex.match input
       if matched

@@ -70,7 +70,7 @@ task :chid do
     end
   }
 
-  Main.new(chid_config: chid_config).init do |action, args|
+  Main.new(chid_config).init do |action, args|
     rake_task = Rake::Task[action]
     task_args = Rake::TaskArguments.new(rake_task.arg_names, args)
 
