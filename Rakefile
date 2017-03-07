@@ -264,7 +264,7 @@ namespace :workstation do
 
   desc 'List all workstations'
   task :list do
-    puts "Workstations availabbe:"
+    puts "Workstations availabbe:".blue
     puts chid_config.all_workstations.keys
   end
 
@@ -280,14 +280,21 @@ namespace :workstation do
   end
 
   desc 'Open a specific workstation'
-  task :open do
-    prompt = TTY::Prompt.new
+  task :open, [:workstation] do |t, args|
     workstations = chid_config.all_workstations
-    choices = workstations.keys
-    result = prompt.select('Choose a workstation to open', choices)
+
+    workstation_name = args[:workstation]
+    apps = workstations[workstation_name.to_sym] unless workstation_name.nil?
+
+    if apps.nil?
+      prompt = TTY::Prompt.new
+      choices = workstations.keys
+      result = prompt.select('Choose a workstation to open', choices)
+      apps = workstations[result.to_sym]
+    end
 
     puts "\nOpening all Apps"
-    workstations[result.to_sym].each do |app_name|
+    apps.each do |app_name|
       chid_config.on_osx do
         system("open -a '#{app_name}'")
       end
