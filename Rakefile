@@ -251,6 +251,15 @@ task :news do
   end
 end
 
+desc 'Update Chid'
+task :update do
+  puts 'Updating Chid...'
+  path = "#{chid_config.chid_path}"
+  Dir.chdir path
+  system('git pull --rebase')
+  puts 'Chid updated'
+end
+
 namespace :update do
   desc 'Update os'
   task :os do
