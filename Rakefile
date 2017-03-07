@@ -57,17 +57,17 @@ end
 
 desc 'Start the Chid app'
 task :chid do
-  prompt = TTY::Prompt.new(help_color: :green)		
-  confirm_install = -> (action, &block) {		
+  prompt = TTY::Prompt.new(help_color: :green)
+  confirm_install = -> (action, &block) {
     matched = /^install:(.*)/.match(action)
     return block.() unless matched
 
     action_name = matched.captures.first
-    if  prompt.yes?("Can I install the #{action_name}?")		
-      block.()		
-    else		
-      puts "\nNo problem. What do you need?"		
-    end		
+    if  prompt.yes?("Can I install the #{action_name}?")
+      block.()
+    else
+      puts "\nNo problem. What do you need?"
+    end
   }
 
   Main.new(chid_config: chid_config).init do |action, args|
@@ -247,6 +247,15 @@ task :news do
     if (/^p/.match(option))
       NewsApi.deacrease_page_by_1
       Rake::Task['news'].execute
+    end
+  end
+end
+
+namespace :update do
+  desc 'Update os'
+  task :os do
+    chid_config.on_linux do
+      system('sudo apt-get update && sudo apt-get -y upgrade')
     end
   end
 end

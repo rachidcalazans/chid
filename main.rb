@@ -15,7 +15,8 @@ class Main
     :'workstation:open'    => [/workstation/, /work/, /open/, /open workstation/, /open work/],
     :'workstation:create'  => [/workstation/, /work/, /create/, /create workstation/, /create work/],
     :'workstation:destroy' => [/workstation/, /work/, /destroy/, /destroy workstation/,
-                               /destroy work/, /remove/, /remove workstation/, /remove work/]
+                               /destroy work/, /remove/, /remove workstation/, /remove work/],
+    :'update:os' => [/update os/, /update/]
   }
 
   ActionWithArgs = Struct.new(:action, :args)
