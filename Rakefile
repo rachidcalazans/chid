@@ -309,7 +309,7 @@ namespace :workstation do
       end
 
       chid_config.on_linux do
-        system("#{app_name}")
+        system("#{app_name} >/dev/null 2>&1 &")
       end
     end
   end
