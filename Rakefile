@@ -305,7 +305,7 @@ namespace :workstation do
     puts "\nOpening all Apps"
     apps.each do |app_name|
       chid_config.on_osx do
-        system("open -a '#{app_name}'")
+        system("open -a #{app_name}")
       end
 
       chid_config.on_linux do
