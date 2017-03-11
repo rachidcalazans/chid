@@ -254,9 +254,10 @@ end
 desc 'Update Chid'
 task :update do
   puts 'Updating Chid...'
-  path = "#{chid_config.chid_path}"
-  Dir.chdir path
-  system('git pull --rebase')
+  path = "#{chid_config.chid_rake_path}"
+  Dir.chdir path do |p|
+    system('git pull --rebase')
+  end
   puts 'Chid updated'
 end
 
