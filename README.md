@@ -62,7 +62,7 @@ All features are listed bellow:
 
 #### Help
 
-* `help` or `:h` - Show all tasks avaiable
+* `help` or `:h` - Show all tasks available
 
 #### Quit
 
