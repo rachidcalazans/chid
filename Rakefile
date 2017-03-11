@@ -196,7 +196,7 @@ namespace :currency do
     types.each { |k, v| puts "#{k} => #{v}"}
   end
 
-  desc 'You can convert an amount between types. Ex.: convert 10 USD to BRL'
+  desc 'You can convert an amount between types. Eg.: convert 10 USD to BRL'
   task :convert, [:amount, :from, :to] do |t, args|
     amount = CurrencyApi.convert(args)
     puts "The converted #{args[:from]} to #{args[:to]} is: #{amount}"
@@ -266,6 +266,10 @@ namespace :update do
   task :os do
     chid_config.on_linux do
       system('sudo apt-get update && sudo apt-get -y upgrade')
+    end
+
+    chid_config.on_osx do
+      puts "Sorry I can't update the OSx"
     end
   end
 end
