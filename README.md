@@ -1,5 +1,8 @@
 # Chid
-Chid is an assistant to help your day-to-day life. It can be used in some installations, news, etc.
+Chid is an assistant to help your day-to-day life. It can be used in some 
+installations, news, configurations, workstations and more.
+
+![](http://recordit.co/dsDH9J5pCv)
 
 ## Installation
 
