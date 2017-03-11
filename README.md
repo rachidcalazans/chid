@@ -2,7 +2,7 @@
 Chid is an assistant to help your day-to-day life. It can be used in some 
 installations, news, configurations, workstations and more.
 
-![](http://g.recordit.co/T2qyg12gE7.gif)
+![](http://g.recordit.co/pKS2oKCUuU.gif)
 
 ## Installation
 
