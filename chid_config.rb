@@ -104,6 +104,10 @@ class ChidConfig
   end
 
   def create_an_empty_chid_config_file
+    print "\nCreating or Updating the "
+    print "~/.chid.config ".blue
+    print "file\n"
+
     base_config = {
       chid: {
         chid_path: chid_path,

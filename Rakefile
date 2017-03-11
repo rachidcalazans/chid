@@ -258,7 +258,10 @@ task :update do
   Dir.chdir path do |p|
     system('git pull --rebase')
   end
-  puts 'Chid updated'
+
+  chid_config.configure
+
+  puts "\n Chid updated"
 end
 
 namespace :update do
