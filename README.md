@@ -71,14 +71,14 @@ All features are listed bellow:
 #### Currency
 
 * `current` - Get the current conversion for USD to BRL amount
-* `currency list` - Show all tyoes of currencies available to convert
+* `currency list` - Show all types of currencies available to convert
 * `convert [amount] [type_from] to [type_to]` - You can convert an amount between 
 types. Eg.: **convert 10 USD to BRL**
 
 #### Install apps
 
-**Note:** All install tasks chid will always ask if you really want install. Also 
-will install the dependencies is necessary.
+**Note:** All install tasks, chid will always ask if you really want to install it. Also 
+will install the dependencies if necessary.
 
 * `install dotfiles` - Install [YADR Dotfiles](https://github.com/skwp/dotfiles)
 * `install node` - Install Node
@@ -107,13 +107,13 @@ or `work [command]`.
 * `work create` - Create a new workstation. Chid will ask for a name to set the 
 new workstation and after that will list all **applications** available on your 
 system to chosse witch one you wanna add
-* `work destroy` - Chid will ask which workstation you want to destroy and it 
+* `work destroy` - Chid will ask which workstation you want to destroy and chid 
 will destroy it after choose
 * `work open` - Open a specific workstation. Chid will list all workstations to 
 choose one of them to open all applications
 * `work open [workstation_name]` - Open a specific workstation without choose 
-from a list. Eg.: `work open home` - It will open all applications inside the 
-**home** workstation
+from a list. Eg.: `work open base` - It will open all applications inside the 
+**base** workstation
 
 ![](http://g.recordit.co/WFqNuxORRd.gif)
 
@@ -167,7 +167,7 @@ After edit you can open the **base** workstation running:
 
 #### Advance configuration
 
-Is possible you can customize some options with each Application when will open
+Is possible you can customize some options with each Application when will open it
 
  - Open the Terminal in a specific folder  
  - Open a Safari with a specific URL
@@ -180,9 +180,9 @@ Is possible you can customize some options with each Application when will open
   :workstations:
     :base: # Workstation Name
     - iTerm ~/Workspaces/rake-workspace/chid/ & rake tmux_config  # Will open 
-    in a specific folder and will run some Rake Task
+    # in a specific folder and will run some Rake Task
     - Safari https://github.com/rachidcalazans/chid # Will open the Safari 
-    in a specific URL
+    # in a specific URL
 ```
 
 ![](http://g.recordit.co/40rFYBBR1t.gif)
