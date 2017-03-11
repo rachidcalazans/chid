@@ -261,7 +261,7 @@ task :update do
 
   chid_config.configure
 
-  puts "\n Chid updated"
+  puts "\nChid updated successfully"
 end
 
 namespace :update do
