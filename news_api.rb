@@ -8,8 +8,12 @@ class NewsApi
   Source  = Struct.new(:id, :name, :description, :category)
 
   SOURCES = [
+    :"reddit-r-all",
     :'google-news',
-    :'ars-technica',
+    :'bbc-news',
+    :'cnn',
+    :'espn',
+    :'mashable',
     :techcrunch
   ]
 

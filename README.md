@@ -93,6 +93,12 @@ will install the dependencies if necessary.
 
 * `update os` or `update` - Will update the linux os. For osx is not available
 
+
+#### News
+
+* `news` - Will show all news from some sites. BBC news, CNN, Espn, 
+Mashable, Google, Techcrunch, Reddit
+
 #### Workstations
 
 Workstations are a way to make it easy for you to open a set of applications by 
