@@ -45,7 +45,7 @@ $ chid update
 **Chid** is an app based on **Rake Tasks**. You are available to use all features 
 as rake tasks or run as a **terminal app**:
 
-**Note:** All tasks is available for **osx** and **linux**. The *chid* will automatically 
+**Note:** All tasks are available for **osx** and **linux**. The *chid* will automatically 
 knows how run the specific **comand** for each plataform.
 
 All features are listed bellow:  
@@ -104,7 +104,7 @@ Mashable, Google, Techcrunch, Reddit
 Workstations are a way to make it easy for you to open a set of applications by 
 simple commands.
 
-The set of confiurations is saved on **.chid.config** file.
+The set of configurations are saved on **.chid.config** file.
 
 **Note:** All commands bellow is possible run with prefix: `workstation [command]` 
 or `work [command]`.
@@ -133,7 +133,7 @@ manually (editing the .chid.config file). Will be explained how on
 
 ## How configure and customize your workstations
 
-The chid configure file is installed on **~/.chid.config**. You can open: `$ chid 
+The chid configuration file is installed on **~/.chid.config**. You can open: `$ chid 
 chid_config`
 
 Chid config is a **YAML** file.
