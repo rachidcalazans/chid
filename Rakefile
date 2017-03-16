@@ -28,6 +28,7 @@ require_relative 'chid_config'
 require_relative 'main'
 require_relative 'news_api'
 require_relative 'currency_api'
+require_relative 'stack_overflow_api'
 require 'yaml'
 require 'tty-prompt'
 
@@ -247,6 +248,43 @@ task :news do
     if (/^p/.match(option))
       NewsApi.deacrease_page_by_1
       Rake::Task['news'].execute
+    end
+  end
+end
+
+desc 'Search questions in StackOverflow'
+task :questions do
+  question = StackOverflowApi.question('No provider for NavController')
+  
+  question.each do |q|
+    published_at = q.creation_date.nil? ? 'unkown' : q.creation_date.strftime("%B %d, %Y")
+    print "\n"
+    print "--- #{q.title} ---".blue
+    print "\n"
+    print "  Posted #{published_at} by ".brown
+    print "\n"
+    print "  Link: "
+    print "#{q.link}".cyan.underline
+    print "\n"
+  end
+  puts "\n#{StackOverflowApi.current_page} of #{StackOverflowApi.total_pages}"
+
+  if StackOverflowApi.total_pages > 1
+    puts "\nPrevious(p) Next(n) Quit(q):"
+    print "> "
+    option = STDIN.gets
+    if (/^q/.match(option))
+      StackOverflowApi.reset
+    end
+
+    if (/^n/.match(option))
+      StackOverflowApi.increase_page_by_1
+      Rake::Task['questions'].execute
+    end
+
+    if (/^p/.match(option))
+      StackOverflowApi.deacrease_page_by_1
+      Rake::Task['questions'].execute
     end
   end
 end
