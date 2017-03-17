@@ -192,3 +192,15 @@ Is possible you can customize some options with each Application when will open 
 ```
 
 ![](http://g.recordit.co/40rFYBBR1t.gif)
+
+#### Stack
+
+A simple search in StackOverflow 
+eg:
+   
+    `stack` java is not working
+    
+<p align="left">
+  <img src="etc/img/stack.png" alt="stack sample" />
+</p>
+    
