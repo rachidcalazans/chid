@@ -1,3 +1,5 @@
+require 'zlib'
+require 'stringio'
 require 'http'
 
 class StackOverflowApi 
@@ -35,25 +37,26 @@ class StackOverflowApi
     end
 
     def self.questions(search)
-        @@SEARCH_QUESTION = "No provider for NavController"
         @@total_questions = 0
-        questions = []
+        list_questions = []
         index = 1
+        uri = URI("https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=#{search}&site=stackoverflow")
+        request = HTTP.get(uri)
+        gz = Zlib::GzipReader.new(StringIO.new(request.body.to_s))        
+        body_decoded = gz.read
+        json_news = JSON.parse(body_decoded)
 
-        request   = HTTP.get("http://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=#{SEARCH_QUESTION}&site=stackoverflow")
-        json_news = JSON.parse request
-
-        @@total_questions = total_articles + json_news[ 'items' ].count
+        @@total_questions = total_questions + json_news[ 'items' ].count
 
         json_news[ 'items' ].each do |i|
-            if index >= current_page * per_page
-                published_at = i['creation_date'].nil ? nil : Date.parse(i[ 'creation_date' ])
-                question = Question.new(i['title'], published_at, i['link'])
-                questions << question
+            break if list_questions.count == per_page
+            if index >= current_page * per_page 
+                question = Question.new(i['title'], Time.at(i[ 'creation_date' ]), i['link'])
+                list_questions << question
             end
             index = index + 1
         end
 
-        question.flatten
+        list_questions.flatten
     end
 end

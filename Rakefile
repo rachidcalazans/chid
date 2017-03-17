@@ -253,8 +253,16 @@ task :news do
 end
 
 desc 'Search questions in StackOverflow'
-task :questions do
-  question = StackOverflowApi.question('No provider for NavController')
+task :stack, [:search] do |t, args|
+
+  search_param = args[:search]
+
+  if search_param.nil?
+    prompt = TTY::Prompt.new
+    result = prompt.select("param search is required")
+  end
+
+  question = StackOverflowApi.questions(search_param)
   
   question.each do |q|
     published_at = q.creation_date.nil? ? 'unkown' : q.creation_date.strftime("%B %d, %Y")
@@ -267,6 +275,7 @@ task :questions do
     print "#{q.link}".cyan.underline
     print "\n"
   end
+  
   puts "\n#{StackOverflowApi.current_page} of #{StackOverflowApi.total_pages}"
 
   if StackOverflowApi.total_pages > 1
@@ -279,12 +288,12 @@ task :questions do
 
     if (/^n/.match(option))
       StackOverflowApi.increase_page_by_1
-      Rake::Task['questions'].execute
+      Rake::Task['stack'].execute
     end
 
     if (/^p/.match(option))
       StackOverflowApi.deacrease_page_by_1
-      Rake::Task['questions'].execute
+      Rake::Task['stack'].execute
     end
   end
 end
