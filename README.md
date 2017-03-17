@@ -99,6 +99,19 @@ will install the dependencies if necessary.
 * `news` - Will show all news from some sites. BBC news, CNN, Espn, 
 Mashable, Google, Techcrunch, Reddit
 
+#### Search on StackOverflow
+
+A simple search in StackOverflow 
+
+* `stack [TEXT_TO_SEACH]` - Will search on StackOverflow all results for that 
+text.
+
+* `stack` - Will ask what you want to search on StackOverflow all results for that 
+    
+<p align="left">
+  <img src="etc/img/stack.png" alt="stack sample" />
+</p>
+    
 #### Workstations
 
 Workstations are a way to make it easy for you to open a set of applications by 
@@ -193,14 +206,3 @@ Is possible you can customize some options with each Application when will open 
 
 ![](http://g.recordit.co/40rFYBBR1t.gif)
 
-#### Stack
-
-A simple search in StackOverflow 
-eg:
-   
-    `stack` java is not working
-    
-<p align="left">
-  <img src="etc/img/stack.png" alt="stack sample" />
-</p>
-    
