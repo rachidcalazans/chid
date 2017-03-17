@@ -19,7 +19,7 @@ class Main
     :'workstation:destroy' => [/^workstation/, /^work$/, /destroy/, /destroy workstation/,
                                /destroy work/, /remove/, /remove workstation/, /remove work/],
     :'update:os' => [/update os/, /update/],
-    :'stack' => [/^stack\s(.*)/]
+    :'stack' => [/^stack\s(.*)/, /^stack/]
   }
 
   ActionWithArgs = Struct.new(:action, :args)
@@ -33,8 +33,8 @@ class Main
   end
 
   def init(&execute_action_block)
-    puts "Hello #{chid_config.username}"
-    msg = "How can I help you?"
+    puts "Hello #{chid_config.username}".blue
+    puts "How can I help you?"
 
     run(&execute_action_block)
   end

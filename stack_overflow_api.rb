@@ -2,7 +2,7 @@ require 'zlib'
 require 'stringio'
 require 'http'
 
-class StackOverflowApi 
+class StackOverflowApi
 
     Question = Struct.new(:title, :creation_date, :link)
 
@@ -42,7 +42,7 @@ class StackOverflowApi
         index = 1
         uri = URI("https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=#{search}&site=stackoverflow")
         request = HTTP.get(uri)
-        gz = Zlib::GzipReader.new(StringIO.new(request.body.to_s))        
+        gz = Zlib::GzipReader.new(StringIO.new(request.body.to_s))
         body_decoded = gz.read
         json_news = JSON.parse(body_decoded)
 
@@ -50,7 +50,7 @@ class StackOverflowApi
 
         json_news[ 'items' ].each do |i|
             break if list_questions.count == per_page
-            if index >= current_page * per_page 
+            if index >= current_page * per_page
                 question = Question.new(i['title'], Time.at(i[ 'creation_date' ]), i['link'])
                 list_questions << question
             end
