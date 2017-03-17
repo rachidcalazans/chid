@@ -25,8 +25,7 @@ class String
 end
 
 
-require File.expand_path('../lib/chid', __FILE__)
-
+load File.expand_path('../chid.gemspec', __FILE__)
 Dir.glob('tasks/**/*.rake').each { |r| load r}
 
 @chid_config = ChidConfig.new

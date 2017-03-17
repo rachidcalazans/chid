@@ -12,6 +12,8 @@ require_relative 'chid/stack_overflow_api'
 
 module Chid
 
+  @chid_config = ChidConfig.new
+
   # The Regex Actions are used to execute automatically some Rake::Task
   #
   # The Keys are the name of the task
@@ -58,5 +60,6 @@ module Chid
     :'update:os'            => [/update os/, /update/],
     :'stack'                => [/^stack\s(.*)/, /^stack/]
   }
+
 
 end
