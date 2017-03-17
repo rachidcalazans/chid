@@ -1,3 +1,5 @@
+#require 'http'
+
 class CurrencyApi
   API_TOKEN = '61d0e853b52d82f00b393fdad228eb47'
 

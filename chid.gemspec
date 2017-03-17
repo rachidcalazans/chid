@@ -2,8 +2,6 @@
 lib  = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'chid/version'
-chid = File.expand_path('../lib/chid', __FILE__)
-require chid
 
 Gem::Specification.new do |spec|
   spec.name          = "chid"
@@ -25,7 +23,7 @@ Gem::Specification.new do |spec|
   # Tasks runner
   spec.add_dependency 'rake'
   # Simple HTTP request
-  spec.add_dependency 'http'
+  spec.add_runtime_dependency 'http'
   # Prompt utils
   spec.add_dependency 'tty-prompt'
 

@@ -26,7 +26,11 @@ end
 
 
 load File.expand_path('../chid.gemspec', __FILE__)
+
 Dir.glob('tasks/**/*.rake').each { |r| load r}
+
+chid = File.expand_path('../lib/chid', __FILE__)
+require chid
 
 @chid_config = ChidConfig.new
 

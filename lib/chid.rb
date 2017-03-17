@@ -1,12 +1,12 @@
 require 'yaml'
 require 'tty-prompt'
 require 'http'
-require 'zlib'
-require 'stringio'
+#require 'zlib'
+#require 'stringio'
 
 require_relative 'chid/chid_config'
-require_relative 'chid/main'
 require_relative 'chid/currency_api'
+require_relative 'chid/main'
 require_relative 'chid/news_api'
 require_relative 'chid/stack_overflow_api'
 
