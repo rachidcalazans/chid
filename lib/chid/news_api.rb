@@ -1,5 +1,3 @@
-require 'http'
-
 # Api Reference: https://newsapi.org/#apiArticles
 class NewsApi
   API_TOKEN = 'ce81e7aeb6c4467880b2ee5e4e2d8492'
@@ -59,7 +57,7 @@ class NewsApi
     index   = 1
     sources.each do |s|
 
-      request   = HTTP.get("https://newsapi.org/v1/articles?source=#{s.id}&apiKey=#{API_TOKEN}")
+      request   = ::HTTP.get("https://newsapi.org/v1/articles?source=#{s.id}&apiKey=#{API_TOKEN}")
       json_news = JSON.parse request
 
       #puts "ART COUNT: #{json_news[ 'articles' ].count}"

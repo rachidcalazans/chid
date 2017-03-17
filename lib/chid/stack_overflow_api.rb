@@ -1,7 +1,3 @@
-require 'zlib'
-require 'stringio'
-require 'http'
-
 class StackOverflowApi
 
     Question = Struct.new(:title, :creation_date, :link)

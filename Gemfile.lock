@@ -1,3 +1,11 @@
+PATH
+  remote: .
+  specs:
+    chid (0.1.0)
+      http
+      rake
+      tty-prompt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -44,10 +52,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  http
+  chid!
   pry
-  rake
-  tty-prompt
 
 BUNDLED WITH
    1.14.5

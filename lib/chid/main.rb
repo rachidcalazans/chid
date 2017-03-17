@@ -1,27 +1,5 @@
 class Main
 
-  REGEX_ACTIONS  = {
-    help: [/help/, /:h/],
-    chid_config: [/config.*/, /chid config.*/],
-    news: [/news/],
-    :'currency:list'       => [/^list$/, /^list currency$/, /^currency$/, /^currency list$/],
-    :'currency:convert'    => [/^conv.*\s(\d*.?\d+?)\s(\w{3})\sto\s(\w{3})/, /^currency/],
-    :'currency:current'    => [/current/, /^currency/, /current currency/],
-    :'install:rvm'         => [/install rvm/],
-    :'install:postgres'    => [/install postgres/],
-    :'install:dotfiles'    => [/install dotfile/, /install dotfiles/, /install yard/],
-    :'install:node'        => [/install node/],
-    :'run:postgres'        => [/run postgres/],
-    :'workstation:list'    => [/^workstation/, /^work$/, /^list$/, /^list workstation$/, /^list work$/, /^work list$/],
-    :'workstation:open'    => [/^workstation/, /^work$/, /^work open$/, /^open workstation/, /^open work$/,
-                               /^open work\s(.+)/, /^open\s(.+)/, /^work open\s(.+)/],
-    :'workstation:create'  => [/^workstation/, /^work$/, /create/, /create workstation/, /create work/],
-    :'workstation:destroy' => [/^workstation/, /^work$/, /destroy/, /destroy workstation/,
-                               /destroy work/, /remove/, /remove workstation/, /remove work/],
-    :'update:os' => [/update os/, /update/],
-    :'stack' => [/^stack\s(.*)/, /^stack/]
-  }
-
   ActionWithArgs = Struct.new(:action, :args)
 
   private
@@ -72,7 +50,7 @@ class Main
   end
 
   def get_actions_with_args(input)
-    actions_with_args = REGEX_ACTIONS.collect do |action, regexs|
+    actions_with_args = Chid::REGEX_ACTIONS.collect do |action, regexs|
       action_with_args = nil
 
       regex_match(input, regexs) do |captured_args|
