@@ -288,12 +288,14 @@ task :stack, [:search] do |t, args|
 
     if (/^n/.match(option))
       StackOverflowApi.increase_page_by_1
-      Rake::Task['stack'].execute
+      task_args = Rake::TaskArguments.new([:search], [search_param])
+      Rake::Task['stack'].execute task_args
     end
 
     if (/^p/.match(option))
       StackOverflowApi.deacrease_page_by_1
-      Rake::Task['stack'].execute
+      task_args = Rake::TaskArguments.new([:search], [search_param])
+      Rake::Task['stack'].execute task_args
     end
   end
 end
