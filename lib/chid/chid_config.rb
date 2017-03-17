@@ -1,5 +1,3 @@
-require 'yaml'
-
 class ChidConfig
 
   attr_reader :chid_path, :home_path, :chid_config_path

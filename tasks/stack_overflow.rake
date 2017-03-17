@@ -1,5 +1,3 @@
-require './stack_overflow_api'
-
 desc 'Search questions in StackOverflow'
 task :stack, [:search] do |t, args|
 

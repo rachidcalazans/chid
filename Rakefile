@@ -24,11 +24,8 @@ class String
   def reverse_color;  "\e[7m#{self}\e[27m" end
 end
 
-require_relative 'chid_config'
-require_relative 'main'
-require_relative 'currency_api'
-require 'yaml'
-require 'tty-prompt'
+
+require File.expand_path('../lib/chid', __FILE__)
 
 Dir.glob('tasks/**/*.rake').each { |r| load r}
 

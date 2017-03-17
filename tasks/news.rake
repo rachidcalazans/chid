@@ -1,5 +1,3 @@
-require './news_api'
-
 desc 'List all news'
 task :news do
   articles = NewsApi.articles

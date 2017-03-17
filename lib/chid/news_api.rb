@@ -1,5 +1,3 @@
-require 'http'
-
 # Api Reference: https://newsapi.org/#apiArticles
 class NewsApi
   API_TOKEN = 'ce81e7aeb6c4467880b2ee5e4e2d8492'
