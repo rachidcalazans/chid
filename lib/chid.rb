@@ -29,10 +29,17 @@ module Chid
   # typed 'hail' the app will match with the value of the array and will execute
   # the Rake::Task[:hello]
   #
+  # Example 2:
+  #
+  #  :'install:dotfiles' => [/install dotfiles/]
+  #
+  #  In that case the key has a namespace (install) and a task name (dotfiles)
+  #
+  #
   # If you want to pass some argument you can use the Capture Enclosed option on
   # regex.
   #
-  # Example 2:
+  # Example 3:
   #
   # :hello => [/hail\s(.*)/]
   #
