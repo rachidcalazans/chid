@@ -60,8 +60,9 @@ module Chid
     :'workstation:create'  => [/^workstation/, /^work$/, /create/, /create workstation/, /create work/],
     :'workstation:destroy' => [/^workstation/, /^work$/, /destroy/, /destroy workstation/,
                                /destroy work/, /remove/, /remove workstation/, /remove work/],
-    :'update:os'            => [/update os/, /update/],
-    :'stack'                => [/^stack\s(.*)/, /^stack/]
+    :'update:os'           => [/update os/, /update/],
+    :'stack'               => [/^stack\s(.*)/, /^stack/],
+    :'yandex_translate' => [/^t\s(.*)\s(\w{2})\sto\s(\w{2})/, /^t\s(.*)/ ]
   }
 
 
