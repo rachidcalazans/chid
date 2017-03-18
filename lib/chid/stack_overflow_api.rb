@@ -1,58 +1,35 @@
 class StackOverflowApi
 
-    Question = Struct.new(:title, :creation_date, :link)
+  Question = Struct.new(:title, :creation_date, :link) do
+    def summary
+      published_at = creation_date.nil? ? 'unkown' : creation_date.strftime("%B %d, %Y")
+      print "\n"
+      print "--- #{title} ---".blue
+      print "\n"
+      print "  Posted #{published_at} by ".brown
+      print "\n"
+      print "  Link: "
+      print "#{link}".cyan.underline
+      print "\n"
+    end
+  end
 
-    def self.per_page
-        @@per_page ||= 3
+  def self.questions(search)
+    uri          = URI("https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=#{search}&site=stackoverflow")
+    response     = HTTP.get(uri)
+    body_decoded = decode_body(response.body.to_s)
+    json_news    = JSON.parse(body_decoded)
+
+    json_news[ 'items' ].collect do |i|
+      Question.new(i['title'], Time.at(i[ 'creation_date' ]), i['link'])
     end
 
-     def self.current_page
-        @@current_page ||= 1
-    end
+  end
 
-    def self.total_questions
-        @@total_questions ||= 0
-    end
+  private
+  def self.decode_body(body_str)
+    gz = Zlib::GzipReader.new(StringIO.new(body_str))
+    gz.read
+  end
 
-    def self.total_pages
-        total_questions / per_page
-    end
-
-    def self.increase_page_by_1
-        @@current_page = @@current_page + 1
-    end
-
-    def self.deacrease_page_by_1
-        @@current_page = @@current_page - 1
-    end
-
-    def self.reset
-        @@per_page = nil
-        @@current_page = nil
-        @@total_questions = 0
-    end
-
-    def self.questions(search)
-        @@total_questions = 0
-        list_questions = []
-        index = 1
-        uri = URI("https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=#{search}&site=stackoverflow")
-        request = HTTP.get(uri)
-        gz = Zlib::GzipReader.new(StringIO.new(request.body.to_s))
-        body_decoded = gz.read
-        json_news = JSON.parse(body_decoded)
-
-        @@total_questions = total_questions + json_news[ 'items' ].count
-
-        json_news[ 'items' ].each do |i|
-            break if list_questions.count == per_page
-            if index >= current_page * per_page
-                question = Question.new(i['title'], Time.at(i[ 'creation_date' ]), i['link'])
-                list_questions << question
-            end
-            index = index + 1
-        end
-
-        list_questions.flatten
-    end
 end
