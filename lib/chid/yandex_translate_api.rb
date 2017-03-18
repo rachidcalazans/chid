@@ -13,4 +13,27 @@ class YandexTranslateApi
     json['text'].first
   end
 
+  def self.list
+      puts "Language            Code    Language        Code".green
+      puts "Azerbaijan          az      Maltese         mt"
+      puts "Albanian            sq      Macedonian      mk"
+      puts "Amharic             am      Maori           mi"
+      puts "English             en      Marathi         mr"
+      puts "Armenian            hy      Mongolian       mn"
+      puts "Afrikaans           af      German          de"
+      puts "Bashkir             ba      Norwegian       no"
+      puts "Bulgarian           bg      Persian         fa"
+      puts "Bosnian             bs      Polish          pl"
+      puts "Welsh               cy      Portuguese      pt"
+      puts "Vietnamese          vi      Russian         ru"
+      puts "Italian             it      Telugu          te"
+      puts "Spanish             es      Udmurt          udm"
+      puts "Chinese             zh      French          fr"
+      puts "Xhosa               xh      Croatian        hr"
+      puts "Latin               la      Czech           cs"
+      puts "Latvian             lv      Swedish         sv"
+      puts "Lithuanian          lt      Scottish        gd"
+      puts "Luxembourgish       lb      Estonian        et"
+  end
+
 end

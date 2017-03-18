@@ -62,7 +62,8 @@ module Chid
                                /destroy work/, /remove/, /remove workstation/, /remove work/],
     :'update:os'           => [/update os/, /update/],
     :'stack'               => [/^stack\s(.*)/, /^stack/],
-    :'yandex_translate' => [/^t\s(.*)\s(\w{2})\sto\s(\w{2})/, /^t\s(.*)/ ]
+    :'translate:yandex_translate' => [/^t\s(.*)\s(\w{2})\sto\s(\w{2})/, /^t\s(.*)/ ],
+    :'translate:yandex_list' => [/^translate list/ ]
   }
 
 
