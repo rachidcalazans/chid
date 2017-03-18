@@ -1,6 +1,7 @@
 require 'yaml'
 require 'tty-prompt'
 require 'http'
+require 'easy_translate'
 
 # Require all files inside the chid folder
 dir = File.join(File.dirname(__FILE__))
