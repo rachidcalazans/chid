@@ -15,7 +15,7 @@ class StackOverflowApi
   end
 
   def self.questions(search)
-    uri          = URI("https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=#{search}&site=stackoverflow")
+    uri = URI("https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&site=stackoverflow&q=#{search}")
     response     = HTTP.get(uri)
     body_decoded = decode_body(response.body.to_s)
     json_news    = JSON.parse(body_decoded)
