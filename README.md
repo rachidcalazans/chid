@@ -101,7 +101,7 @@ Mashable, Google, Techcrunch, Reddit
 #### Translate
 
 * `t [TEXT]` or `t [TEXT] [FROM] to [TO]` - Will translate the given text. By
-default the from is **en** and to is **pt**
+default the **from** is **en** and **to** is **pt**
 
 Example:
 `t hello world` or `t hello world en to pt`
