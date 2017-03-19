@@ -117,8 +117,6 @@ text.
 A simple search for repository name
 
 * `github [SEARCH_EXPRESSION]` - Show results for expression paginated every 10
-
-![](https://imgflip.com/gif/1lpsxn) 
     
 #### Workstations
 
