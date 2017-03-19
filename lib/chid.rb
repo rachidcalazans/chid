@@ -60,7 +60,8 @@ module Chid
     :'workstation:destroy' => [/^workstation/, /^work$/, /destroy/, /destroy workstation/,
                                /destroy work/, /remove/, /remove workstation/, /remove work/],
     :'update:os'            => [/update os/, /update/],
-    :'stack'                => [/^stack\s(.*)/, /^stack/]
+    :'stack'                => [/^stack\s(.*)/, /^stack/],
+    :github                 => [/^github\s(.+)/] 
   }
 
 
