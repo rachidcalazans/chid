@@ -13,6 +13,8 @@ class Paginator
     def paginate(&block)
         begin_index = (current_page - 1) * per_page
         end_index   = (current_page * per_page) - 1
+        
+        return if list.size < begin_index
 
         paginated_list = list.slice(begin_index..end_index)
 
