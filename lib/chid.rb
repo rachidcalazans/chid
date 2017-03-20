@@ -63,7 +63,8 @@ module Chid
     :'update:os'           => [/update os/, /update/],
     :'stack'               => [/^stack\s(.*)/, /^stack/],
     :'translate:yandex_translate' => [/^t\s(.*)\s(\w{2})\sto\s(\w{2})/, /^t\s(.*)/ ],
-    :'translate:yandex_list' => [/^translate list/ ]
+    :'translate:yandex_list' => [/^translate list/ ],
+    :github                 => [/^github\s(.+)/]
   }
 
 
