@@ -2,3 +2,4 @@
 
 * Add:  
   - **Translate** rake task
+  - **Github** search rake task
