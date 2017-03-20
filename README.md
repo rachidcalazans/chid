@@ -93,11 +93,18 @@ will install the dependencies if necessary.
 
 * `update os` or `update` - Will update the linux os. For osx is not available
 
-
 #### News
 
 * `news` - Will show all news from some sites. BBC news, CNN, Espn, 
 Mashable, Google, Techcrunch, Reddit
+
+#### Translate
+
+* `t [TEXT]` or `t [TEXT] [FROM] to [TO]` - Will translate the given text. By
+default the **from** is **en** and **to** is **pt**
+
+Example:
+`t hello world` or `t hello world en to pt`
 
 #### Search on StackOverflow
 

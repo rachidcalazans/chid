@@ -26,5 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'http'
   # Prompt utils
   spec.add_dependency 'tty-prompt'
+  # Google translate
+  spec.add_dependency 'easy_translate'
 
 end

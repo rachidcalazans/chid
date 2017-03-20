@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    chid (0.1.0)
+    chid (0.1.1)
+      easy_translate
       http
       rake
       tty-prompt
@@ -14,6 +15,10 @@ GEM
     coderay (1.1.1)
     domain_name (0.5.20170223)
       unf (>= 0.0.5, < 1.0.0)
+    easy_translate (0.5.0)
+      json
+      thread
+      thread_safe
     equatable (0.5.0)
     http (2.2.1)
       addressable (~> 2.3)
@@ -24,6 +29,7 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
+    json (2.0.3)
     method_source (0.8.2)
     necromancer (0.4.0)
     pastel (0.7.1)
@@ -36,6 +42,8 @@ GEM
     public_suffix (2.0.5)
     rake (12.0.0)
     slop (3.6.0)
+    thread (0.2.2)
+    thread_safe (0.3.6)
     tty-color (0.4.2)
     tty-cursor (0.4.0)
     tty-prompt (0.11.0)
@@ -56,4 +64,4 @@ DEPENDENCIES
   pry
 
 BUNDLED WITH
-   1.14.5
+   1.14.6

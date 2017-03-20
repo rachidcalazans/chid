@@ -1,6 +1,7 @@
 require 'yaml'
 require 'tty-prompt'
 require 'http'
+require 'easy_translate'
 
 # Require all files inside the chid folder
 dir = File.join(File.dirname(__FILE__))
@@ -59,9 +60,11 @@ module Chid
     :'workstation:create'  => [/^workstation/, /^work$/, /create/, /create workstation/, /create work/],
     :'workstation:destroy' => [/^workstation/, /^work$/, /destroy/, /destroy workstation/,
                                /destroy work/, /remove/, /remove workstation/, /remove work/],
-    :'update:os'            => [/update os/, /update/],
-    :'stack'                => [/^stack\s(.*)/, /^stack/],
-    :github                 => [/^github\s(.+)/] 
+    :'update:os'           => [/update os/, /update/],
+    :'stack'               => [/^stack\s(.*)/, /^stack/],
+    :'translate:yandex_translate' => [/^t\s(.*)\s(\w{2})\sto\s(\w{2})/, /^t\s(.*)/ ],
+    :'translate:yandex_list' => [/^translate list/ ],
+    :github                 => [/^github\s(.+)/]
   }
 
 
