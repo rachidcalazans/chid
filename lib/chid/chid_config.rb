@@ -17,6 +17,14 @@ class ChidConfig
     print "\nConfiguration done!\n"
   end
 
+  def configure_chid_file_only
+    print  "\nConfigurating the Chid app...\n"
+
+    create_an_empty_chid_config_file
+
+    print "\nConfiguration done!\n"
+  end
+
   def username
     on_linux { return  %x[echo $USER].strip }
     on_osx   { return  %x[echo $(logname)].strip }

@@ -1,14 +1,54 @@
-desc 'Show all tasks availabe'
-task :help do
-  #Dir.chdir @chid_config.chid_rake_path
-  #system("rake -T")
-  puts "\nTell me what you need"
-
-  a = <<MY
 # Chid
+Chid is an assistant to help your day-to-day life. It can be used in some 
+installations, news, configurations, workstations and more.
+
+![](http://g.recordit.co/pKS2oKCUuU.gif)
+
+## Installation
+
+To get started follow those steps:
+
+1- Clone the project:
+
+```bash
+git clone https://github.com/rachidcalazans/chid.git
+```
+
+:	2- Install the dependcy if you do not have already installed:
+
+```bash
+$ gem install bundler
+$ bundle install
+```
+
+3- Inside the folder project run:
+
+```bash
+$ rake init
+```
+
+**Note:** Chid will automatically install a *.chid.config* file and create an 
+alias on your **.bashrc** or **.zshrc** (if you have zsh installed). After the 
+installation **Chid** will give you the *bash command* to reload your **sources**
+file.
+
+## Upgrading
+
+To update the chid is easy.
+
+```bash
+$ chid update
+```
+
+## Usage
+
+**Chid** is an app based on **Rake Tasks**. You are available to use all features 
+as rake tasks or run as a **terminal app**:
 
 **Note:** All tasks are available for **osx** and **linux**. The *chid* will automatically 
 knows how run the specific **comand** for each plataform.
+
+All features are listed bellow:  
 
 #### Install chid configuration
 
@@ -75,6 +115,10 @@ text.
 
 * `stack` - Will ask what you want to search on StackOverflow all results for that 
     
+<p align="left">
+  <img src="etc/img/stack.png" alt="stack sample" />
+</p>
+
 #### Search GitHub repositories
 
 A simple search for repository name
@@ -102,6 +146,8 @@ choose one of them to open all applications
 * `work open [workstation_name]` - Open a specific workstation without choose 
 from a list. Eg.: `work open base` - It will open all applications inside the 
 **base** workstation
+
+![](http://g.recordit.co/WFqNuxORRd.gif)
 
 **Note:** For linux users the **work create** is not working. You need create 
 manually (editing the .chid.config file). Will be explained how on
@@ -149,6 +195,8 @@ After edit you can open the **base** workstation running:
 * `$ chid workstation:open['base']` - As rake task
 * `work open base` - With the **chid** app running
 
+![](http://g.recordit.co/VqTjUsQ9fy.gif)
+
 #### Advance configuration
 
 Is possible you can customize some options with each Application when will open it
@@ -169,10 +217,5 @@ Is possible you can customize some options with each Application when will open 
     # in a specific URL
 ```
 
-MY
-
-puts a
-
-end
-
+![](http://g.recordit.co/40rFYBBR1t.gif)
 

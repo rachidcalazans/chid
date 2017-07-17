@@ -1,3 +1,4 @@
+require 'rake'
 require 'yaml'
 require 'tty-prompt'
 require 'http'
@@ -7,6 +8,13 @@ require 'easy_translate'
 dir = File.join(File.dirname(__FILE__))
 glob = Dir.glob(dir + "/chid/*.rb")
 glob.each { |r| require r }
+
+dir_tasks = File.expand_path('..', File.dirname(__FILE__))
+dir = File.join(dir_tasks, 'tasks')
+glob = Dir.glob(dir + "/**/*.rake")
+glob.each { |r| load r }
+
+@chid_config = ChidConfig.new
 
 module Chid
 

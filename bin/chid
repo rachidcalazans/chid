@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'chid'
+require 'rake'
+
+task = ARGV[0]
+
+if task.nil?
+  Rake.application.run
+  return
+end
+
+Rake.application[task].invoke
