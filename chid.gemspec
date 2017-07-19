@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib", "tasks"]
 
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rspec'
 
   # Tasks runner
   spec.add_dependency 'rake'
