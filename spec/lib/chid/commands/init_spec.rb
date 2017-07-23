@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe Chid::Commands::Init do
 
-  subject { Chid::Commands::Init.new(chid_config_path) }
+  let(:argv) { {} }
+  subject { Chid::Commands::Init.new(argv) }
 
-  let(:chid_config_path) { '' }
-
-  ## TODO: Extract for a shared context test
+  # @TODO: Extract for a shared context test
   describe 'Documentations classes attributes' do
     it('summary should not be nil') { expect(subject.class.summary).not_to be_nil }
     it('description should not be nil') { expect(subject.class.description).not_to be_nil }
@@ -14,15 +13,24 @@ describe Chid::Commands::Init do
   end
 
   describe '#run' do
-    let(:chid_config_path) { File.join(File.dirname(__FILE__), '.chid.config') }
+    let(:chid_config_path)            { File.join(File.dirname(__FILE__), '.chid.config') }
     let(:file_content_configurations) { YAML.load_file(chid_config_path) }
+
+    let(:default_allows) do
+      allow(subject).to receive(:chid_config_path).and_return(chid_config_path)
+    end
+
     let(:setup) {}
 
     before do
+      default_allows
       setup
       subject.run
     end
-    after  { File.delete(chid_config_path) }
+
+    after do
+      File.delete(chid_config_path) if File.exist?(chid_config_path)
+    end
 
     context 'When does not exist .chid.config file' do
       let(:base_configuration) do
@@ -59,6 +67,7 @@ describe Chid::Commands::Init do
         expect(file_content_configurations).to eq existent_configurations
       end
     end
+
   end
 
 end

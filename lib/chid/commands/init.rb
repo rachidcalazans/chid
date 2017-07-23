@@ -10,16 +10,14 @@ module Chid
       DESC
       self.arguments = []
 
-      def initialize(chid_config_path)
-        @chid_config_path = chid_config_path
-      end
-
       def run
         create_or_update_chid_config_file
       end
 
       private
-      attr_reader :chid_config_path
+      def chid_config_path
+       @chid_config_path ||= Chid::chid_config_path
+      end
 
       def create_or_update_chid_config_file
         print_informations
