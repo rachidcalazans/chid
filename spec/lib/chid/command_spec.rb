@@ -55,9 +55,9 @@ describe Chid::Command do
       let(:init_command_class) { double arguments: [] }
       let(:init_command)       { double class: init_command_class }
 
-      let(:command) { 'init' }
+      let(:command) { ['init'] }
       let(:options) { [] }
-      let(:argv) { [command].concat(options) }
+      let(:argv) { command.concat(options) }
 
       let(:default_allows) do
         allow(subject_class).to receive(:command_key_is_included?).and_return(true)
@@ -70,6 +70,21 @@ describe Chid::Command do
         default_allows
         setup_allows
         Chid::Command.run(argv)
+      end
+
+      context 'When is a single command' do
+
+        it 'Command key should be :init' do
+          expect(subject_class).to have_received(:command_key_is_included?).with(:init)
+        end
+      end
+
+      context 'When is a compost command' do
+        let(:command) { ['init', 'chid']  }
+
+        it 'Command key should be :"init chid"' do
+          expect(subject_class).to have_received(:command_key_is_included?).with(:'init chid')
+        end
       end
 
       # @TODO: Extract that context to shared examples

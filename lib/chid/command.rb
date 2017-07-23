@@ -5,7 +5,8 @@ module Chid
       attr_accessor :summary, :description, :arguments
 
       COMMANDS = {
-        init: 'Chid::Commands::Init'
+        :'init'         => 'Chid::Commands::Init',
+        :'install node' => 'Chid::Commands::Installs::Node'
       }
 
       def help
@@ -19,7 +20,8 @@ module Chid
       end
 
       def run(argv)
-        return self.help unless command_key_is_included?(argv)
+        command_key = command_key(argv)
+        return self.help unless command_key_is_included?(command_key)
         invoke(argv)
       end
 
@@ -64,12 +66,15 @@ module Chid
         new_options
       end
 
-      def command_key_is_included?(argv)
-        COMMANDS.include?(command_key(argv))
+      def command_key_is_included?(command_key)
+        COMMANDS.include?(command_key)
       end
 
       def command_key(argv)
-        argv[0].to_sym
+        argv.reduce('') { |command, arg|
+          break(command) if arg_is_an_option?(arg)
+          command << "#{arg} "
+        }.strip.to_sym
       end
 
       # Convenience method.

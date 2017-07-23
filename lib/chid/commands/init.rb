@@ -16,7 +16,7 @@ module Chid
 
       private
       def chid_config_path
-       @chid_config_path ||= Chid::chid_config_path
+       @chid_config_path ||= ::Chid::chid_config_path
       end
 
       def create_or_update_chid_config_file
