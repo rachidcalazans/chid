@@ -70,6 +70,23 @@ module Chid
         COMMANDS.include?(command_key)
       end
 
+      # Returns the command key based on argv parameter.
+      # That command could be a single or compost command.
+      #
+      # @param [Array<String>] argv
+      #        The arguments passed from input.
+      #
+      # @return [Sym] the sym of the command
+      #
+      # @example Get the command_key in an argv
+      #   argv = ['init', '-option_1', 'value_for_option_1']
+      #
+      #   command_key(argv) #=> :init
+      #
+      #   argv = ['init', 'chid', '-option_1', 'value_for_option_1']
+      #
+      #   command_key(argv) #=> :'init chid'
+      #
       def command_key(argv)
         argv.reduce('') { |command, arg|
           break(command) if arg_is_an_option?(arg)
