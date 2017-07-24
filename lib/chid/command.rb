@@ -10,7 +10,7 @@ module Chid
       }
 
       def help
-        <<-DOC
+        print <<-DOC
         #{summary}
 
         #{description}
@@ -101,18 +101,21 @@ module Chid
       #        The arguments to initialize the command with
       #
       def invoke(argv)
-        command = new_command_instance(command_key(argv), map_options_with_values(argv))
-        return command.class.help unless has_valid_arguments?(command.class, argv)
-        command.run
+        options = map_options_with_values(argv)
+        command = new_command_instance(command_key(argv), options)
+        return command.run if has_no_arguments?(options) || has_valid_arguments?(command.class, options)
+        command.class.help
       end
 
       def new_command_instance(command_key, options)
         Object.const_get(COMMANDS[command_key]).new(options)
       end
 
-      def has_valid_arguments?(command_class, argv)
-        options = map_options_with_values(argv)
+      def has_no_arguments?(options)
+        options.empty?
+      end
 
+      def has_valid_arguments?(command_class, options)
         command_class.arguments.include?(options.keys)
       end
 

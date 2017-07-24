@@ -74,6 +74,8 @@ describe Chid::Command do
 
       context 'When is a single command' do
 
+        let(:setup_allows) { allow(init_command).to receive(:run) }
+
         it 'Command key should be :init' do
           expect(subject_class).to have_received(:command_key_is_included?).with(:init)
         end
@@ -81,6 +83,8 @@ describe Chid::Command do
 
       context 'When is a compost command' do
         let(:command) { ['init', 'chid']  }
+
+        let(:setup_allows) { allow(init_command).to receive(:run) }
 
         it 'Command key should be :"init chid"' do
           expect(subject_class).to have_received(:command_key_is_included?).with(:'init chid')
@@ -116,6 +120,25 @@ describe Chid::Command do
           expected_options = {
             '-some_valid_option' => ['some', 'value']
           }
+          expect(subject_class).to have_received(:new_command_instance).with(:init, expected_options)
+        end
+
+        it 'Command should call :run method' do
+          expect(init_command).to have_received(:run)
+        end
+
+      end
+
+      context 'When no pass any options' do
+        let(:options) { [] }
+
+        let(:setup_allows) do
+          allow(init_command).to receive(:run)
+          allow(subject_class).to receive(:has_valid_arguments?).and_return(false)
+        end
+
+        it 'Command should call :new method with :options' do
+          expected_options = {}
           expect(subject_class).to have_received(:new_command_instance).with(:init, expected_options)
         end
 
