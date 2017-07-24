@@ -5,24 +5,26 @@ require 'rake'
 
 task = ARGV.join(" ")
 
+puts "TASK: #{ARGV}"
+
 if task.empty?
   #Rake.application.run
   Chid::start
 else
-  puts "TASK: #{ARGV.join(" ")}"
-  if task == 'install node'
-    Chid::Commands::Installs::Node.new().run
-  elsif task == 'install postgres'
-    Chid::Commands::Installs::Postgres.new().run
-  elsif task == 'install rvm'
-    Chid::Commands::Installs::Rvm.new().run
-  elsif task == 'install dotfile'
-    Chid::Commands::Installs::Dotfile.new().run
-  elsif task == 'install'
-    Chid::Commands::Install.new(Chid::chid_config_path).run
-  else
-    puts "Invalid task name. Try again"
-  end
+  Chid::Command.run(ARGV)
+  #if task == 'install node'
+  #  Chid::Commands::Installs::Node.new().run
+  #elsif task == 'install postgres'
+  #  Chid::Commands::Installs::Postgres.new().run
+  #elsif task == 'install rvm'
+  #  Chid::Commands::Installs::Rvm.new().run
+  #elsif task == 'install dotfile'
+  #  Chid::Commands::Installs::Dotfile.new().run
+  #elsif task == 'install'
+  #  Chid::Commands::Install.new(Chid::chid_config_path).run
+  #else
+  #  puts "Invalid task name. Try again"
+  #end
 end
 
 #Rake.application[task].invoke
