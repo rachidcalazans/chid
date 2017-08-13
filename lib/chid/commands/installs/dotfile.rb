@@ -1,7 +1,17 @@
 module Chid
   module Commands
     module Installs
-      class Dotfile
+      class Dotfile < Command
+
+        command :'install dotfile'
+
+        self.summary = 'Install the Dotfile'
+        self.description = <<-DESC
+          For Linux users will install through curl and will isntall zsh and git-core
+
+          For OSx users will install through curl
+        DESC
+        self.arguments = []
 
         def run
           puts "\nInstalling the YADR Dotfiles..."

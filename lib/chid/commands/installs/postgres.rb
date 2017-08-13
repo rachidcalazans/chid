@@ -1,7 +1,19 @@
 module Chid
   module Commands
     module Installs
-      class Postgres
+      class Postgres < Command
+
+        command :'install postgres'
+
+        self.summary = 'Install the Postgres'
+        self.description = <<-DESC
+          For Linux users will install through apt-get
+
+          For OSx users will install through brew
+        DESC
+        self.arguments = []
+
+
 
         def run
           puts "\nInstalling the Postgres..."

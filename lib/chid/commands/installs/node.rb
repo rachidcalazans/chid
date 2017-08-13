@@ -3,11 +3,13 @@ module Chid
     module Installs
       class Node < Command
 
+        command :'install node'
+
         self.summary = 'Install the Node'
         self.description = <<-DESC
           For Linux users will install through apt-get
 
-          For OSx users will install through bew
+          For OSx users will install through brew
         DESC
         self.arguments = []
 

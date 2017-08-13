@@ -1,7 +1,18 @@
 module Chid
   module Commands
     module Installs
-      class Rvm
+      class Rvm < Command
+
+        command :'install rvm'
+
+        self.summary = 'Install the RVM'
+        self.description = <<-DESC
+          For Linux users will install through apt-get
+
+          For OSx users will install through curl
+        DESC
+        self.arguments = []
+
 
         def run
           puts "\nInstalling the RVM..."

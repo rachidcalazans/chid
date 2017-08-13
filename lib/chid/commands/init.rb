@@ -2,6 +2,8 @@ module Chid
   module Commands
     class Init < Command
 
+      command :init
+
       self.summary = 'Generate a .chid.config file on root directory'
       self.description = <<-DESC
         Creates a .chid.config file on root directory if none .chid.config file exists.

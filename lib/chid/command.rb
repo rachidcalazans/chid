@@ -4,10 +4,11 @@ module Chid
     class << self
       attr_accessor :summary, :description, :arguments
 
-      COMMANDS = {
-        :'init'         => 'Chid::Commands::Init',
-        :'install node' => 'Chid::Commands::Installs::Node'
-      }
+      COMMANDS = {}
+
+      def command(cmd)
+        COMMANDS[cmd] = self.to_s
+      end
 
       def help
         print <<-DOC
