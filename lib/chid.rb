@@ -5,23 +5,16 @@ require 'http'
 require 'easy_translate'
 
 require 'chid/command'
-require 'chid/commands/init'
-require 'chid/commands/install'
-require 'chid/commands/installs/dotfile'
-require 'chid/commands/installs/node'
-require 'chid/commands/installs/postgres'
-require 'chid/commands/installs/rvm'
 
 # Require all files inside the chid folder
 dir = File.join(File.dirname(__FILE__))
-glob = Dir.glob(dir + "/chid/*.rb")
+glob = Dir.glob(dir + "/chid/**/*.rb")
 glob.each { |r| require r }
 
 dir_tasks = File.expand_path('..', File.dirname(__FILE__))
 dir = File.join(dir_tasks, 'tasks')
 glob = Dir.glob(dir + "/**/*.rake")
 glob.each { |r| load r }
-
 
 module Chid
   def self.start
