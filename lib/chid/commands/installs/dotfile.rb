@@ -7,9 +7,9 @@ module Chid
 
         self.summary = 'Install the Dotfile'
         self.description = <<-DESC
-          For Linux users will install through curl and will isntall zsh and git-core
+For Linux users will install through curl and will isntall zsh and git-core
 
-          For OSx users will install through curl
+For OSx users will install through curl
         DESC
         self.arguments = []
 

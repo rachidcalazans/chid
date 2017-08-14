@@ -127,8 +127,10 @@ module Chid
 
     public
 
+    attr_reader :options
+
     def initialize(argv)
-      options = self.class.map_options_with_values(argv)
+      @options = self.class.map_options_with_values(argv)
     end
 
   end
