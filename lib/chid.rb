@@ -6,6 +6,7 @@ require 'easy_translate'
 
 require 'chid/command'
 require 'chid/commands/init'
+require 'chid/commands/gitflow/commit'
 require 'chid/commands/install'
 require 'chid/commands/installs/dotfile'
 require 'chid/commands/installs/node'
