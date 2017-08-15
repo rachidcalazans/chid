@@ -13,13 +13,18 @@ module Chid
           @prompt = TTY::Prompt.new
           choices = ['Add', 'Remove','Update', 'Refactor','Fix']
           result = @prompt.select('Select the kind of commit:', choices)
-          puts 'Tell me the commit title'
-          print '> '
-          commit_title = STDIN.gets.strip
+          commit_title = add_commit_title
           @commit_lines = "\n"
           add_commit_description
           commit = "#{result} #{commit_title} \n #{@commit_lines}"
+          puts commit
           system("git commit -sm \"#{commit}\"")
+        end
+
+        def add_commit_title
+          puts 'Tell me the commit title'
+          print '> '
+          commit_title = STDIN.gets.strip
         end
 
         def add_commit_description
