@@ -10,15 +10,23 @@ module Chid
         self.arguments = []
 
         def run
-          @prompt = TTY::Prompt.new
-          choices = ['Add', 'Remove','Update', 'Refactor','Fix']
-          result = @prompt.select('Select the kind of commit:', choices)
-          commit_title = add_commit_title
-          @commit_lines = "\n"
-          add_commit_description
-          commit = "#{result} #{commit_title} \n #{@commit_lines}"
+          commit = build_commit 
           puts commit
-          system("git commit -sm \"#{commit}\"")
+          #system("git commit -sm \"#{commit}\"")
+        end
+
+        def build_commit 
+          @commit_lines = "\n"
+          commit_kind  = add_commit_kind
+          commit_title = add_commit_title
+          add_commit_description
+          commit = "#{commit_kind} #{commit_title} \n #{@commit_lines}"
+        end
+
+        def add_commit_kind
+          @prompt = TTY::Prompt.new
+          choices = ['Add', 'Remove','Update', 'Refactor','Fix'] #TODO: look for commit patterns and add description for each
+          result = @prompt.select('Select commit type: ', choices)
         end
 
         def add_commit_title
@@ -28,19 +36,17 @@ module Chid
         end
 
         def add_commit_description
-          puts 'Tell me the commit description, 140 characteres per line'
+          puts 'Tell me the commit description, one action per line'
           print "> "
           commit_description ="- #{STDIN.gets.strip} \n"
           @commit_lines << commit_description
-          unless did_commit_finished?
-            add_commit_description
-          end
+          add_commit_description unless did_commit_finished?
         end
 
         def did_commit_finished?
           answers = ['Yes','No']
-          result_description_finished = @prompt.select('Did you finish?', answers)
-          result_description_finished == 'Yes'
+          result_description_finished = @prompt.select('more?', answers)
+          result_description_finished == 'No'
         end
 
       end
