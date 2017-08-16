@@ -10,17 +10,25 @@ module Chid
         self.arguments = []
 
         def run
-          commit = build_commit 
-          puts commit
-          #system("git commit -sm \"#{commit}\"")
+          commit = build_commit
+          system("git commit -sm \"#{commit}\"")
+          system("git push origin #{branch}")
         end
 
-        def build_commit 
+        def build_commit
           @commit_lines = "\n"
           commit_kind  = add_commit_kind
           commit_title = add_commit_title
           add_commit_description
-          commit = "#{commit_kind} #{commit_title} \n #{@commit_lines}"
+          commit = "#{branch_name} #{commit_kind} #{commit_title} \n #{@commit_lines}"
+        end
+
+        def branch
+          @branch ||= %x[git rev-parse --bbrev-ref HEAD].strip
+        end
+
+        def branch_name
+          @branch_name ||= branch[/\w{1,}\/#?\d{1,}/] || branch
         end
 
         def add_commit_kind
@@ -43,12 +51,17 @@ module Chid
           add_commit_description unless did_commit_finished?
         end
 
+        def do_push?
+          answers = ['Yes','No']
+          result_should_push = @prompt.select('Push changes?', answers)
+          result_should_push == 'Yes'
+        end
+
         def did_commit_finished?
           answers = ['Yes','No']
           result_description_finished = @prompt.select('more?', answers)
           result_description_finished == 'No'
         end
-
       end
     end
   end
