@@ -7,6 +7,11 @@ module Chid
 
         self.summary = 'List all existent workstations'
         self.description = <<-DESC
+
+Usage:
+
+  $ chid workstation list
+
         DESC
         self.arguments = []
 

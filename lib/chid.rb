@@ -17,59 +17,63 @@ glob = Dir.glob(dir + "/**/*.rake")
 glob.each { |r| load r }
 
 module Chid
-  def self.start
-    chid_config = ChidConfig.new
-  prompt = TTY::Prompt.new(help_color: :green)
-  confirm_install = -> (action, &block) {
-    matched = /^install:(.*)/.match(action)
-    return block.() unless matched
 
-    action_name = matched.captures.first
-    if  prompt.yes?("Can I install the #{action_name}?")
-      block.()
-    else
-      puts "\nNo problem. What do you need?"
-    end
-  }
-
-  Main.new(chid_config).init do |action, args|
-    rake_task = Rake::Task[action]
-    task_args = Rake::TaskArguments.new(rake_task.arg_names, args)
-
-    confirm_install.(action) do
-      rake_task.execute(task_args)
-    end
-
-    puts "\nDone! What else?"
+  def self.chid_config
+    @chid_config ||= ChidConfig.new
   end
-end
+
+  def self.start
+    prompt = TTY::Prompt.new(help_color: :green)
+    confirm_install = -> (action, &block) {
+      matched = /^install:(.*)/.match(action)
+      return block.() unless matched
+
+      action_name = matched.captures.first
+      if  prompt.yes?("Can I install the #{action_name}?")
+        block.()
+      else
+        puts "\nNo problem. What do you need?"
+      end
+    }
+
+    Main.new(chid_config).init do |action, args|
+      rake_task = Rake::Task[action]
+      task_args = Rake::TaskArguments.new(rake_task.arg_names, args)
+
+      confirm_install.(action) do
+        rake_task.execute(task_args)
+      end
+
+      puts "\nDone! What else?"
+    end
+  end
 
   def self.chid_config_path
-  home_path = File.expand_path("~/")
-  chid_config_path = File.join(home_path, '.chid.config')
-  chid_config_path
-end
+    home_path = File.expand_path("~/")
+    chid_config_path = File.join(home_path, '.chid.config')
+    chid_config_path
+  end
 
   def self.username
-  on_linux { return  %x[echo $USER].strip }
-  on_osx   { return  %x[echo $(logname)].strip }
-end
+    on_linux { return  %x[echo $USER].strip }
+    on_osx   { return  %x[echo $(logname)].strip }
+  end
 
   def self.on_linux
-  if  platform =~ /Linux/
-    yield
+    if  platform =~ /Linux/
+      yield
+    end
   end
-end
 
   def self.on_osx
-  if  platform =~ /Darwin/
-    yield
+    if  platform =~ /Darwin/
+      yield
+    end
   end
-end
 
   def self.platform
-  %x{echo $(uname -s)}.strip
-end
+    %x{echo $(uname -s)}.strip
+  end
 
 
   # The Regex Actions are used to execute automatically some Rake::Task

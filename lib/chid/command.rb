@@ -12,13 +12,26 @@ module Chid
       end
 
       def help
-        print <<-DOC
-        #{summary}
+        if self.description.nil?
+          commands = String.new
+          COMMANDS.keys.each {|k| commands <<  "  #{k.to_s}\n" }
+          self.description = <<-DESC
+Usage:
 
-        #{description}
+  $ chid [COMMAND]
 
-        #{arguments}
-        DOC
+   To see what the Command do:
+
+    $ chid [COMMAND] -h
+
+Commands:
+
+#{commands}
+          DESC
+        end
+
+        puts summary
+        print description
       end
 
       def run(argv)
@@ -118,7 +131,7 @@ module Chid
       end
 
       def has_valid_arguments?(command_class, options)
-        command_class.arguments.include?(options.keys)
+        !(command_class.arguments & options.keys).empty?
       end
 
     end
@@ -129,8 +142,8 @@ module Chid
 
     attr_reader :options
 
-    def initialize(argv)
-      @options = self.class.map_options_with_values(argv)
+    def initialize(options)
+      @options = options
     end
 
   end

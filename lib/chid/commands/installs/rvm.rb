@@ -7,9 +7,15 @@ module Chid
 
         self.summary = 'Install the RVM'
         self.description = <<-DESC
-          For Linux users will install through apt-get
 
-          For OSx users will install through curl
+Usage:
+
+  $ chid install rvm
+
+    For Linux users will install through apt-get
+
+    For OSx users will install through curl
+
         DESC
         self.arguments = []
 

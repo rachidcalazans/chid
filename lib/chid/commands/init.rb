@@ -6,9 +6,15 @@ module Chid
 
       self.summary = 'Generate a .chid.config file on root directory'
       self.description = <<-DESC
-        Creates a .chid.config file on root directory if none .chid.config file exists.
 
-        To access that file will be created in `~/.chid.config`
+Usage:
+
+  $ chid init
+
+    Creates a .chid.config file on root directory if none .chid.config file exists.
+
+    To access that file will be created in `~/.chid.config`
+
       DESC
       self.arguments = []
 
