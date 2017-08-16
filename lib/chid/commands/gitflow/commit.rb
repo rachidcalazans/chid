@@ -33,7 +33,7 @@ module Chid
 
         def add_commit_kind
           @prompt = TTY::Prompt.new
-          choices = ['Add', 'Remove','Update', 'Refactor','Fix'] #TODO: look for commit patterns and add description for each
+          choices = ['Add', 'Remove','Update', 'Refactor','Fix']
           result = @prompt.select('Select commit type: ', choices)
         end
 
