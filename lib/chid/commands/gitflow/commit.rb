@@ -24,7 +24,7 @@ module Chid
         end
 
         def branch
-          @branch ||= %x[git rev-parse --bbrev-ref HEAD].strip
+          @branch ||= %x[git rev-parse --abbrev-ref HEAD].strip
         end
 
         def branch_name
