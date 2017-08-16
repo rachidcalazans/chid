@@ -7,9 +7,15 @@ module Chid
 
         self.summary = 'Install the Postgres'
         self.description = <<-DESC
-          For Linux users will install through apt-get
 
-          For OSx users will install through brew
+Usage:
+
+  $ chid install postgres
+
+    For Linux users will install through apt-get
+
+    For OSx users will install through brew
+
         DESC
         self.arguments = []
 
