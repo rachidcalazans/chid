@@ -4,9 +4,33 @@ module Chid
       class Commit < Command
 
         command :commit
-        self.summary = 'Will commit a...'
+        self.summary = 'Create a commits in based on gitFlow pattern'
         self.description = <<-DESC
+
+Usage:
+
+  $ chid commit
+
+    An easy way to create commits following simple steps:
+
+    First:
+      Choose your commit type in this options (add,Remove, Update, Refactor, Fix)
+
+    Second:
+      Type your commit title, a brief description of your changes
+
+    Third:
+      Add your description lines, describing exactly what you did
+
+    Thats it! Your commit will be created and pushed like this sample:
+
+    feature/#123 Add specific file needed to app
+
+    - specific file have now this line
+    - this is the description line two
+
         DESC
+
         self.arguments = []
 
         def run
