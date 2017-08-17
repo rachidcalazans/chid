@@ -1,3 +1,8 @@
+### 0.1.5
+
+* Update:  
+  - Chid Gitflow Command
+
 ### 0.1.4
 
 * Add:  
