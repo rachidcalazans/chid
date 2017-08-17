@@ -1,7 +1,15 @@
-### 0.1.3 - Beta
+### 0.1.4
+
+* Add:  
+  - Chid Installs Command
+  - Chid Workstation Command
+  - Chid Gitflow Command
+
+### 0.1.3
 
 * Add:  
   - Chid Executable
+  - Chid Commit Command
 
 * Update:
   - Change way to show the Helper task
