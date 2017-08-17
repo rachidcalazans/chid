@@ -36,7 +36,9 @@ Usage:
         def run
           commit = build_commit
           system("git commit -sm \"#{commit}\"")
-          system("git push origin #{branch}")
+          if do_push?
+           system("git push origin #{branch}")
+          end
         end
 
         def build_commit
