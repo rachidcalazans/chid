@@ -83,7 +83,7 @@ All features are listed bellow:
 - [Search on StackOverflow](#search-on-stackOverflow)
 - [Search GitHub repositories](#search-gitHub-repositories)
 - [Workstations](#workstations)
-- [Configure and customize your workstations](configure-workstation)
+- [Configure and customize your workstations](#configure-workstation)
  
 
 #### <a name="currency"></a> Currency
@@ -172,7 +172,7 @@ from a list. Eg.: `work open base` - It will open all applications inside the
 manually (editing the .chid.config file). Will be explained how on
 **How configure and customize your workstations** topic
 
-## <a name="configure-workstation"></a>How configure and customize your workstations
+## <a name="configure-workstation"></a> How configure and customize your workstations
 
 The chid configuration file is installed on **~/.chid.config**. You can open: `$ chid 
 chid_config`
