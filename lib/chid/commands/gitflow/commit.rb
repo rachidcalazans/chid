@@ -58,7 +58,6 @@ Options:
             '-A' => 'Add',
             '-U' => 'Update',
             '-R' => 'Remove',
-            '-U' => 'Update',
             '-Ref' => 'Refactor',
             '-F' => 'Fix'
           }
