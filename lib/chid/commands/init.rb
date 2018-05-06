@@ -50,14 +50,16 @@ Usage:
         return base_configurations unless chid_config_file_exist?
 
         data = YAML.load_file chid_config_path
-        data[:chid][:workstations] = data[:chid].fetch(:workstations, {})
+        data[:chid][:workstations]   = data[:chid].fetch(:workstations, {})
+        data[:chid][:tmux_templates] = data[:chid].fetch(:tmux_templates, {})
         data
       end
 
       def base_configurations
         {
           chid: {
-            workstations: {}
+            workstations: {},
+            tmux_templates: {}
           }
         }
       end
