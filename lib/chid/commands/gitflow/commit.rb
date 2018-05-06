@@ -56,7 +56,6 @@ Options:
         def first_option_kind
           options_titles = {
             '-A' => 'Add',
-            '-U' => 'Update',
             '-R' => 'Remove',
             '-U' => 'Update',
             '-Ref' => 'Refactor',
