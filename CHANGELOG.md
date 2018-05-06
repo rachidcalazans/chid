@@ -1,3 +1,8 @@
+### 0.1.6
+
+* Update:  
+  - Chid tmux Command
+
 ### 0.1.5
 
 * Update:  
