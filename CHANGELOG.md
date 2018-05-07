@@ -1,3 +1,8 @@
+### 0.1.6.1
+
+* Update:  
+  - Chid tmux and workstation Commands to be used for ruby versions 2.5+
+
 ### 0.1.6
 
 * Update:  
