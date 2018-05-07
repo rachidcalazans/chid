@@ -65,8 +65,9 @@ Options:
 
         def select_template
           prompt  = TTY::Prompt.new
-          choices = templates.keys
+          choices = templates.keys.map(&:to_s)
           selected_template = prompt.select('Choose a template to open', choices)
+
           selected_template
         end
 

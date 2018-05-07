@@ -65,7 +65,7 @@ Options:
 
         def select_workstation
           prompt  = TTY::Prompt.new
-          choices = workstations.keys
+          choices = workstations.keys.map(&:to_s)
           selected_workstation = prompt.select('Choose a workstation to open', choices)
           selected_workstation
         end
