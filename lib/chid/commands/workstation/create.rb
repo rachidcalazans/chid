@@ -12,7 +12,7 @@ Usage:
 
   $ chid workstation create
 
-    Create a a new workstation with the selected apps.
+    Create a new workstation with the selected apps.
 
     To see all workstations you can run
 
