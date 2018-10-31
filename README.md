@@ -6,12 +6,19 @@ installations, news, configurations, workstations and more.
 
 ## Installation
 
+### Via Gem
+
+```bash
+$ gem install chid
+```
+
+#### Via Project
 To get started follow those steps:
 
 1- Clone the project:
 
 ```bash
-git clone https://github.com/rachidcalazans/chid.git
+$ git clone https://github.com/rachidcalazans/chid.git
 ```
 
 2- Install the dependcy if you do not have already installed:
@@ -35,6 +42,14 @@ file.
 ## Upgrading
 
 To update the chid is easy.
+
+#### Via Gem
+
+```bash
+$ gem update chid
+```
+
+#### Via Project
 
 ```bash
 $ chid update
