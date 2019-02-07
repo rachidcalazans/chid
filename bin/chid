@@ -5,7 +5,7 @@ require 'rake'
 
 task = ARGV.join(" ")
 
-puts "TASK: #{ARGV}"
+#puts "TASK: #{ARGV}"
 
 if task.empty?
   #Rake.application.run

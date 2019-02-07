@@ -56,6 +56,11 @@ class ChidConfig
     data[:chid][:workstations]
   end
 
+  def all_tmux_templates
+    data = YAML.load_file chid_config_path
+    data[:chid][:tmux_templates]
+  end
+
   def destroy_workstations(workstations = [])
     data = YAML.load_file chid_config_path
 

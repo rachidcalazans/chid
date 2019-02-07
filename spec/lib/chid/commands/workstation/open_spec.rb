@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Chid::Commands::Workstation::Open, tt:true do
+describe Chid::Commands::Workstation::Open do
 
   subject { Chid::Commands::Workstation::Open.new(options) }
 
