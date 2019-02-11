@@ -84,6 +84,7 @@ will install the dependencies if necessary.
 * `install node` - Install Node
 * `install postgres` - Install Postgres
 * `install rvm` - Install stable RVM version
+* `install vim and/or gvim` - Install Vim
 
 #### Run
 
