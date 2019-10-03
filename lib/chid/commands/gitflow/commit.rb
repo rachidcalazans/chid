@@ -57,7 +57,6 @@ Options:
           options_titles = {
             '-A' => 'Add',
             '-R' => 'Remove',
-            '-U' => 'Update',
             '-Ref' => 'Refactor',
             '-F' => 'Fix'
           }

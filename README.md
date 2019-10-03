@@ -14,7 +14,7 @@ To get started follow those steps:
 git clone https://github.com/rachidcalazans/chid.git
 ```
 
-2- Install the dependcy if you do not have already installed:
+:	2- Install the dependcy if you do not have already installed:
 
 ```bash
 $ gem install bundler
@@ -54,6 +54,10 @@ All features are listed bellow:
 
 * `$ chid init` - Will install all necessary confiuration.
 
+#### Chid configuration
+
+* `chid config` or `config` - Open the **.chid.config** file
+
 #### Start the app
 
 * `$ chid` - To start the **chid** terminal app
@@ -68,14 +72,28 @@ All features are listed bellow:
 
 * `:q` or `quit` or `bye` or `exit` - Will finish the **chid** app
 
-#### Currency
+## Features
+
+- [currency](#currency) 
+- [Install apps](#install-apps)
+- [Run apps](#run)
+- [Update linux](#update)
+- [News](#news)
+- [Translate](#translate)
+- [Search on StackOverflow](#search-on-stackOverflow)
+- [Search GitHub repositories](#search-gitHub-repositories)
+- [Workstations](#workstations)
+- [Configure and customize your workstations](#configure-workstation)
+ 
+
+#### <a name="currency"></a> Currency
 
 * `current` - Get the current conversion for USD to BRL amount
 * `currency list` - Show all types of currencies available to convert
 * `convert [amount] [type_from] to [type_to]` - You can convert an amount between 
 types. Eg.: **convert 10 USD to BRL**
 
-#### Install apps
+#### <a name="install-apps"></a> Install apps
 
 **Note:** All install tasks, chid will always ask if you really want to install it. Also 
 will install the dependencies if necessary.
@@ -86,20 +104,20 @@ will install the dependencies if necessary.
 * `install rvm` - Install stable RVM version
 * `install vim and/or gvim` - Install Vim
 
-#### Run
+#### <a name="run"></a> Run
 
 * `run postgres` - Run the postgresql if you already have installed.
 
-#### Update
+#### <a name="update"></a> Update
 
 * `update os` or `update` - Will update the linux os. For osx is not available
 
-#### News
+#### <a name="news"></a> News
 
 * `news` - Will show all news from some sites. BBC news, CNN, Espn, 
 Mashable, Google, Techcrunch, Reddit
 
-#### Translate
+#### <a name="translate"></a> Translate
 
 * `t [TEXT]` or `t [TEXT] [FROM] to [TO]` - Will translate the given text. By
 default the **from** is **en** and **to** is **pt**
@@ -107,7 +125,8 @@ default the **from** is **en** and **to** is **pt**
 Example:
 `t hello world` or `t hello world en to pt`
 
-#### Search on StackOverflow
+#### <a name="search-on-stackOverflow"></a> Search on StackOverflow
+
 
 A simple search in StackOverflow 
 
@@ -120,13 +139,13 @@ text.
   <img src="etc/img/stack.png" alt="stack sample" />
 </p>
 
-#### Search GitHub repositories
+#### <a name="search-gitHub-repositories"></a> Search GitHub repositories
 
 A simple search for repository name
 
 * `github [SEARCH_EXPRESSION]` - Show results for expression paginated every 10
     
-#### Workstations
+#### <a name="workstations"></a> Workstations
 
 Workstations are a way to make it easy for you to open a set of applications by 
 simple commands.
@@ -154,11 +173,7 @@ from a list. Eg.: `work open base` - It will open all applications inside the
 manually (editing the .chid.config file). Will be explained how on
 **How configure and customize your workstations** topic
 
-#### Chid configuration
-
-* `chid config` or `config` - Open the **.chid.config** file
-
-## How configure and customize your workstations
+## <a name="configure-workstation"></a> How configure and customize your workstations
 
 The chid configuration file is installed on **~/.chid.config**. You can open: `$ chid 
 chid_config`
