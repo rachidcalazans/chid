@@ -57,9 +57,7 @@ All features are listed bellow:
 - [currency](#currency) 
 - [Install apps](#install-apps)
 - [Run apps](#run)
-- [Update linux](#update)
 - [News](#news)
-- [Translate](#translate)
 - [Search on StackOverflow](#search-on-stackOverflow)
 - [Search GitHub repositories](#search-gitHub-repositories)
 - [Workstations](#workstations)
@@ -77,43 +75,29 @@ All features are listed bellow:
 **Note:** All install tasks, chid will always ask if you really want to install it. Also 
 will install the dependencies if necessary.
 
-* `install dotfiles` - Install [YADR Dotfiles](https://github.com/skwp/dotfiles)
-* `install node` - Install Node
-* `install postgres` - Install Postgres
-* `install rvm` - Install stable RVM version
-* `install vim and/or gvim` - Install Vim
+* `$ chid install dotfiles` - Install [YADR Dotfiles](https://github.com/skwp/dotfiles)
+* `$ chid install node` - Install Node
+* `$ chid install postgres` - Install Postgres
+* `$ chid install rvm` - Install stable RVM version
+* `$ chid install vim and/or gvim` - Install Vim
 
 #### <a name="run"></a> Run
 
 * `run postgres` - Run the postgresql if you already have installed.
 
-#### <a name="update"></a> Update
-
-* `update os` or `update` - Will update the linux os. For osx is not available
-
 #### <a name="news"></a> News
 
-* `news` - Will show all news from some sites. BBC news, CNN, Espn, 
+* `$ chid news` - Will show all news from some sites. BBC news, CNN, Espn, 
 Mashable, Google, Techcrunch, Reddit
-
-#### <a name="translate"></a> Translate
-
-* `t [TEXT]` or `t [TEXT] [FROM] to [TO]` - Will translate the given text. By
-default the **from** is **en** and **to** is **pt**
-
-Example:
-`t hello world` or `t hello world en to pt`
 
 #### <a name="search-on-stackOverflow"></a> Search on StackOverflow
 
 
 A simple search in StackOverflow 
 
-* `stack [TEXT_TO_SEACH]` - Will search on StackOverflow all results for that 
+* `$ chid stack -search [TEXT_TO_SEACH]` - Will search on StackOverflow all results for that 
 text.
 
-* `stack` - Will ask what you want to search on StackOverflow all results for that 
-    
 <p align="left">
   <img src="etc/img/stack.png" alt="stack sample" />
 </p>
@@ -122,7 +106,7 @@ text.
 
 A simple search for repository name
 
-* `github [SEARCH_EXPRESSION]` - Show results for expression paginated every 10
+* `$ chid github -name [SEARCH_EXPRESSION]` - Show results for expression paginated every 10
     
 #### <a name="workstations"></a> Workstations
 
