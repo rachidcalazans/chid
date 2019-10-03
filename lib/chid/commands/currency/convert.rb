@@ -10,9 +10,9 @@ module Chid
 
 Usage:
 
-  $ chid currency now -amount 10.5
+  $ chid currency convert -amount 10.5
     or
-  $ chid currency -amount 10.5 -to BRL -from USD
+  $ chid currency convert -amount 10.5 -to BRL -from USD
 
     You can convert an amount between types. Default -to BRL, -from USD
 

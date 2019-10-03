@@ -88,10 +88,9 @@ All features are listed bellow:
 
 #### <a name="currency"></a> Currency
 
-* `current` - Get the current conversion for USD to BRL amount
-* `currency list` - Show all types of currencies available to convert
-* `convert [amount] [type_from] to [type_to]` - You can convert an amount between 
-types. Eg.: **convert 10 USD to BRL**
+* `chid currency now` - Get the now converstion. Default -from USD -to BRL
+* `chid currency list` - All list of available Source to use on `now` and `convert commands`
+* `chid currency convert -amount [amount]` - You can convert an amount between types. Default -to BRL, -from USD 
 
 #### <a name="install-apps"></a> Install apps
 
