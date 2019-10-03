@@ -1,3 +1,4 @@
+# @deprecated
 module Chid
 module Commands
   class Install
