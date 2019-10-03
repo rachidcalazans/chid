@@ -6,46 +6,39 @@ installations, news, configurations, workstations and more.
 
 ## Installation
 
-To get started follow those steps:
-
-1- Clone the project:
+### Via Gem
 
 ```bash
-git clone https://github.com/rachidcalazans/chid.git
+$ gem install chid
 ```
 
-:	2- Install the dependcy if you do not have already installed:
+#### Initialize the chid config file
 
 ```bash
-$ gem install bundler
-$ bundle install
+$ chid init
 ```
 
-3- Inside the folder project run:
+Creates a .chid.config file on root directory if none `~/.chid.config` file exists.
 
-```bash
-$ rake init
-```
-
-**Note:** Chid will automatically install a *.chid.config* file and create an 
-alias on your **.bashrc** or **.zshrc** (if you have zsh installed). After the 
-installation **Chid** will give you the *bash command* to reload your **sources**
-file.
+To access that file will be created in `~/.chid.config`
 
 ## Upgrading
 
 To update the chid is easy.
 
 ```bash
-$ chid update
+$ gem update chid
 ```
 
 ## Usage
 
-**Chid** is an app based on **Rake Tasks**. You are available to use all features 
-as rake tasks or run as a **terminal app**:
+**Chid** is an gem app based on **Commands**. You are available to use all features running on **terminal**:
 
-**Note:** All tasks are available for **osx** and **linux**. The *chid* will automatically 
+To see all commands and how to use on Terminal, run:
+
+`$ chid -h`
+
+**Note:** All Commands are available for **osx** and **linux**. The *chid* will automatically 
 knows how run the specific **comand** for each plataform.
 
 All features are listed bellow:  
@@ -56,23 +49,10 @@ All features are listed bellow:
 
 #### Chid configuration
 
-* `chid config` or `config` - Open the **.chid.config** file
+* `$ chid config` - Open the **.chid.config** file using any source you want. By default is **vim**.
+* `$ chid config -editor vim`
 
-#### Start the app
-
-* `$ chid` - To start the **chid** terminal app
-
-**Note:** To run the commands listed bellow you must started the chid app.
-
-#### Help
-
-* `help` or `:h` - Show all tasks available
-
-#### Quit
-
-* `:q` or `quit` or `bye` or `exit` - Will finish the **chid** app
-
-## Features
+#### Feature Commands
 
 - [currency](#currency) 
 - [Install apps](#install-apps)
@@ -88,9 +68,9 @@ All features are listed bellow:
 
 #### <a name="currency"></a> Currency
 
-* `chid currency now` - Get the now converstion. Default -from USD -to BRL
-* `chid currency list` - All list of available Source to use on `now` and `convert commands`
-* `chid currency convert -amount [amount]` - You can convert an amount between types. Default -to BRL, -from USD 
+* `$ chid currency now` - Get the now converstion. Default -from USD -to BRL
+* `$ chid currency list` - All list of available Source to use on `now` and `convert commands`
+* `$ chid currency convert -amount [amount]` - You can convert an amount between types. Default -to BRL, -from USD 
 
 #### <a name="install-apps"></a> Install apps
 
@@ -151,31 +131,29 @@ simple commands.
 
 The set of configurations are saved on **.chid.config** file.
 
-**Note:** All commands bellow is possible run with prefix: `workstation [command]` 
-or `work [command]`.
+**Note:** All commands bellow is possible run with prefix: `$ chid workstation [command]` 
 
-* `work list` - List all workstations
-* `work create` - Create a new workstation. Chid will ask for a name to set the 
+* `$ chid workstation list` - List all workstations
+* `$ chid workstation create` - Create a new workstation. Chid will ask for a name to set the 
 new workstation and after that will list all **applications** available on your 
 system to chosse witch one you wanna add
-* `work destroy` - Chid will ask which workstation you want to destroy and chid 
+* `$ chid workstation destroy` - Chid will ask which workstation you want to destroy and chid 
 will destroy it after choose
-* `work open` - Open a specific workstation. Chid will list all workstations to 
+* `$ chid workstation open` - Open a specific workstation. Chid will list all workstations to 
 choose one of them to open all applications
-* `work open [workstation_name]` - Open a specific workstation without choose 
-from a list. Eg.: `work open base` - It will open all applications inside the 
+* `$ chid workstation open -name [workstation_name]` - Open a specific workstation without choose 
+from a list. Eg.: `$ chid workstation open -name base` - It will open all applications inside the 
 **base** workstation
 
 ![](http://g.recordit.co/WFqNuxORRd.gif)
 
-**Note:** For linux users the **work create** is not working. You need create 
+**Note:** For linux users the `$chid workstation create` is not working. You need create 
 manually (editing the .chid.config file). Will be explained how on
 **How configure and customize your workstations** topic
 
 ## <a name="configure-workstation"></a> How configure and customize your workstations
 
-The chid configuration file is installed on **~/.chid.config**. You can open: `$ chid 
-chid_config`
+The chid configuration file is installed on **~/.chid.config**. You can open: `$ chid config`
 
 Chid config is a **YAML** file.
 
@@ -188,6 +166,7 @@ The initial chid config file will be like:
 :chid:
   :chid_path: "[CHID_FOLDER_PROJECT_PATH]"
   :workstations: {}
+  :tmux_templates: {}
 ```
 
 #### Base configuration
@@ -203,12 +182,13 @@ To add a new *workstation* you can edit like:
     - iTerm #Application Name
     - Safari
     - Slack
+  :tmux_templates: {}
 ```
 
 After edit you can open the **base** workstation running:
 
-* `$ chid workstation:open['base']` - As rake task
-* `work open base` - With the **chid** app running
+* `$ chid workstation open -name base`
+* `$ chid workstation open -n base`
 
 ![](http://g.recordit.co/VqTjUsQ9fy.gif)
 
@@ -226,10 +206,11 @@ Is possible you can customize some options with each Application when will open 
   :chid_path: "[CHID_FOLDER_PROJECT_PATH]"
   :workstations:
     :base: # Workstation Name
-    - iTerm ~/Workspaces/rake-workspace/chid/ & rake tmux_config  # Will open 
-    # in a specific folder and will run some Rake Task
+    - iTerm ~/Workspaces/rake-workspace/chid/ & rspec  # Will open 
+    # in a specific folder and will run the rspec (run all tests)
     - Safari https://github.com/rachidcalazans/chid # Will open the Safari 
     # in a specific URL
+  :tmux_templates: {}
 ```
 
 ![](http://g.recordit.co/40rFYBBR1t.gif)
