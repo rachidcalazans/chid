@@ -36,7 +36,8 @@ describe Chid::Commands::Init do
       let(:base_configuration) do
         {
           chid: {
-            workstations: {}
+            workstations: {},
+            tmux_templates: {}
           }
         }
       end
@@ -52,7 +53,8 @@ describe Chid::Commands::Init do
           chid: {
             workstations: {
               base: 'vim'
-            }
+            },
+            tmux_templates: {}
           }
         }
       end
