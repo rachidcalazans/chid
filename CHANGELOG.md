@@ -1,3 +1,8 @@
+### 0.2.1
+
+* Update:  
+  - Way to get correctly the ChidConfig instance for Tmux and Workstation Commands
+
 ### 0.2.0
 
 * Add:  
