@@ -148,7 +148,6 @@ The initial chid config file will be like:
 ```YAML
 ---
 :chid:
-  :chid_path: "[CHID_FOLDER_PROJECT_PATH]"
   :workstations: {}
   :tmux_templates: {}
 ```
@@ -160,7 +159,6 @@ To add a new *workstation* you can edit like:
 ```YAML
 ---
 :chid:
-  :chid_path: "[CHID_FOLDER_PROJECT_PATH]"
   :workstations:
     :base: # Workstation Name
     - iTerm #Application Name
@@ -187,7 +185,6 @@ Is possible you can customize some options with each Application when will open 
 ```YAML
 ---
 :chid:
-  :chid_path: "[CHID_FOLDER_PROJECT_PATH]"
   :workstations:
     :base: # Workstation Name
     - iTerm ~/Workspaces/rake-workspace/chid/ & rspec  # Will open 

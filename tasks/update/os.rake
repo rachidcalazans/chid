@@ -1,3 +1,4 @@
+# @todo: Extract it for a Command feature
 namespace :update do
 
   desc 'Update os'

@@ -1,3 +1,14 @@
+### 0.1.7.0
+
+* Add:  
+  - Chid config Command
+  - Chid currency Commands
+  - Chid github Command
+
+* Remove:  
+  - All unecessary rake tasks
+  - Translate feature
+
 ### 0.1.6.1
 
 * Update:  

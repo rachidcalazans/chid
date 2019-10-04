@@ -1,3 +1,4 @@
+# @todo: Extract it for a Command feature
 namespace :install do
 
   desc 'Install YADR Dotfiles'

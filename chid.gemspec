@@ -15,19 +15,13 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  #spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib", "tasks"]
 
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rspec'
 
-  # Tasks runner
-  spec.add_dependency 'rake'
   # Simple HTTP request
   spec.add_runtime_dependency 'http'
   # Prompt utils
   spec.add_dependency 'tty-prompt'
-  # Google translate
-  spec.add_dependency 'easy_translate'
-
 end

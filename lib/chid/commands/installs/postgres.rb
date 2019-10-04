@@ -24,11 +24,11 @@ Usage:
         def run
           puts "\nInstalling the Postgres..."
 
-          ::Chid::on_linux do
+          ::ChidConfig.on_linux do
             system('sudo apt-get install postgresql postgresql-contrib')
           end
 
-          ::Chid::on_osx do
+          ::ChidConfig.on_osx do
             system('brew install postgres')
           end
 

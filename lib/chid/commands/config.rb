@@ -40,7 +40,7 @@ Options:
       end
 
       def chid_config_path
-       @chid_config_path ||= ::Chid::chid_config_path
+        @chid_config_path ||= ::ChidConfig.new.chid_config_path
       end
     end
   end

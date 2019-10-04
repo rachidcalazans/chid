@@ -21,7 +21,7 @@ Usage:
 
         def run
           puts "\nInstalling the YADR Dotfiles..."
-          ::Chid::on_linux do
+          ::ChidConfig.on_linux do
             system('sudo apt-get update')
             system('sudo apt-get install curl')
             system('sudo apt-get install zsh')

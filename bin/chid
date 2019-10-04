@@ -1,12 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'chid'
-require 'rake'
 
-task = ARGV.join(" ")
+task = ARGV || ['-h']
 
-if task.empty?
-  Chid::start
-else
-  Chid::Command.run(ARGV)
-end
+Chid::Command.run(task)

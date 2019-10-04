@@ -24,12 +24,12 @@ Usage:
           is_vim = do_vim?
           is_gvim = do_gvim?
 
-          ::Chid::on_linux do
+          ::ChidConfig.on_linux do
             system('sudo apt-get install vim') if is_vim
             system('sudo apt-get install vim-gnome') if is_gvim
           end
 
-          ::Chid::on_osx do
+          ::ChidConfig.on_osx do
             system('brew install vim && brew install macvim')
           end
 

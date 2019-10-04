@@ -24,7 +24,7 @@ Usage:
 
       private
       def chid_config_path
-       @chid_config_path ||= ::Chid::chid_config_path
+        @chid_config_path ||= ::ChidConfig.new.chid_config_path
       end
 
       def create_or_update_chid_config_file
@@ -67,7 +67,6 @@ Usage:
       def chid_config_file_exist?
         File.exist?(chid_config_path)
       end
-
     end
   end
 end
