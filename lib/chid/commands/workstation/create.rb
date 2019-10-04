@@ -23,7 +23,7 @@ Usage:
 
         def run
           workstation_name = get_workstation_name 
-          result           = chid_config.on_osx { select_apps_on_osx }
+          result           = ::ChidConfig.on_osx { select_apps_on_osx }
 
           if result.empty?
             puts "\nYou did not select any App, please try again."
@@ -44,7 +44,7 @@ Usage:
         end
 
         def chid_config
-          ::Chid.chid_config
+          ::ChidConfig.new
         end
 
         def select_apps_on_osx

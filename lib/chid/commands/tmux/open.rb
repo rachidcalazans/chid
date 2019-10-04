@@ -56,7 +56,7 @@ Options:
         end
 
         def chid_config
-          ::Chid.chid_config
+          ::ChidConfig.new
         end
 
         def templates

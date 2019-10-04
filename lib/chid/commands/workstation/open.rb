@@ -56,7 +56,7 @@ Options:
         end
 
         def chid_config
-          ::Chid.chid_config
+          ::ChidConfig.new
         end
 
         def workstations
@@ -74,11 +74,11 @@ Options:
           puts "\nOpening all Apps"
           apps = workstations[workstation_name.to_sym]
           apps.each do |app_name|
-            chid_config.on_osx do
+            ::ChidConfig.on_osx do
               system("open -a #{app_name}")
             end
 
-            chid_config.on_linux do
+            ::ChidConfig.on_linux do
               system("#{app_name} >/dev/null 2>&1 &")
             end
           end
