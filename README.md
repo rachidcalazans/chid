@@ -54,21 +54,44 @@ All features are listed bellow:
 
 #### Feature Commands
 
-- [currency](#currency) 
+- [Git Commit](#git-commit)
 - [Install apps](#install-apps)
 - [Run apps](#run)
+- [currency](#currency) 
 - [News](#news)
 - [Search on StackOverflow](#search-on-stackOverflow)
 - [Search GitHub repositories](#search-gitHub-repositories)
 - [Workstations](#workstations)
 - [Configure and customize your workstations](#configure-workstation)
  
+#### <a name="git-commit"></a> Git Commit
 
-#### <a name="currency"></a> Currency
+Create a commits in based on gitFlow pattern.
 
-* `$ chid currency now` - Get the now converstion. Default -from USD -to BRL
-* `$ chid currency list` - All list of available Source to use on `now` and `convert commands`
-* `$ chid currency convert -amount [amount]` - You can convert an amount between types. Default -to BRL, -from USD 
+* `$ chid commit` - Start the process of commiting
+* `$ chid commit -h` - To see all options you can use as shortcut
+
+##### An easy way to create commits following simple steps:
+
+**First**:
+  Choose your commit type in this options (add,Remove, Update, Refactor, Fix)
+
+**Second**:
+  Type your commit title, a brief description of your changes
+
+**Third**:
+  Add your description lines, describing exactly what you did
+
+Thats it! Your commit will be created and pushed like this sample:
+
+```YAML
+feature/#123 Add specific file needed to app
+
+- specific file have now this line
+- this is the description line two
+
+Signed-off-by: "YourName" "yourEmail@mail.com"
+```
 
 #### <a name="install-apps"></a> Install apps
 
@@ -84,6 +107,12 @@ will install the dependencies if necessary.
 #### <a name="run"></a> Run
 
 * `run postgres` - Run the postgresql if you already have installed.
+
+#### <a name="currency"></a> Currency
+
+* `$ chid currency now` - Get the now converstion. Default -from USD -to BRL
+* `$ chid currency list` - All list of available Source to use on `now` and `convert commands`
+* `$ chid currency convert -amount [amount]` - You can convert an amount between types. Default -to BRL, -from USD 
 
 #### <a name="news"></a> News
 
