@@ -62,6 +62,7 @@ All features are listed bellow:
 - [Search on StackOverflow](#search-on-stackOverflow)
 - [Search GitHub repositories](#search-gitHub-repositories)
 - [Workstations](#workstations)
+- [Tmux](#tmux)
 - [Configure and customize your workstations](#configure-workstation)
  
 ### <a name="git-commit"></a> Git Commit
@@ -163,6 +164,50 @@ from a list. Eg.: `$ chid workstation open -name base` - It will open all applic
 **Note:** For linux users the `$chid workstation create` is not working. You need create 
 manually (editing the .chid.config file). Will be explained how on
 **How configure and customize your workstations** topic
+
+### <a name="tmux"></a> Tmux
+
+If you use Tmux as I do for development, this is a nice Command Feature!
+
+This feature is based on some templates you will create on `~/.chid.config` file to open easily all your Dev Env
+
+This Feature have **2** commands, `list` and `open`
+
+* `$ chid tmux list` - List all existent tmux template
+* `$ chid tmux create` - Open a specific tmux template
+
+#### An example of Template you will add on **~/.chid.config**:
+
+```YAML
+---
+:chid:
+  :workstations: {}
+  :tmux_templates:
+    :NAME_YOUR_PROJECT:
+    - tmux new -s $$template_name$$ -n app -d;
+    - tmux send-keys -t $$template_name$$ 'cd DIRECTORY_PROJECT_PATH'
+      C-m;
+    - tmux send-keys -t $$template_name$$ 'vim' C-m C-m;
+    - tmux new-window -n tests -t $$template_name$$;
+    - tmux send-keys -t $$template_name$$ 'cd DIRECTORY_PROJECT_PATH'
+      C-m;
+    - tmux new-window -n server -t $$template_name$$;
+    - tmux send-keys -t $$template_name$$ 'cd DIRECTORY_PROJECT_PATH'
+      C-m;
+    - tmux attach -t $$template_name$$;
+```
+
+The example above each line is a tmux command. You can do what you need. In this case we have only two variables to replace:
+- NAME_YOUR_PROJECT -> the name which will appear on `tmux list`
+- DIRECTORY_PROJECT_PATH -> the full path of the your directory project. Ex.: `~/Workspaces/ruby-workspace/chid/`
+
+The commands above means those steps:  
+1- Create a new Tmux session with `app` name for the first tab or Find an existent one and Open it  
+2- Open the folder project on the tmux tab `app`  
+3- Open a new tab called `vim` and open the vim on the folder project  
+4- Open a new tab called `server` and go to the folder project  
+
+**base** workstation
 
 ## <a name="configure-workstation"></a> How configure and customize your workstations
 
