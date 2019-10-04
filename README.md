@@ -43,16 +43,16 @@ knows how run the specific **comand** for each plataform.
 
 All features are listed bellow:  
 
-#### Install chid configuration
+### Install chid configuration
 
 * `$ chid init` - Will install all necessary confiuration.
 
-#### Chid configuration
+### Chid configuration
 
 * `$ chid config` - Open the **.chid.config** file using any source you want. By default is **vim**.
 * `$ chid config -editor vim`
 
-#### Feature Commands
+### Feature Commands
 
 - [Git Commit](#git-commit)
 - [Install apps](#install-apps)
@@ -64,14 +64,14 @@ All features are listed bellow:
 - [Workstations](#workstations)
 - [Configure and customize your workstations](#configure-workstation)
  
-#### <a name="git-commit"></a> Git Commit
+### <a name="git-commit"></a> Git Commit
 
 Create a commits in based on gitFlow pattern.
 
 * `$ chid commit` - Start the process of commiting
 * `$ chid commit -h` - To see all options you can use as shortcut
 
-##### An easy way to create commits following simple steps:
+#### An easy way to create commits following simple steps:
 
 **First**:
   Choose your commit type in this options (add,Remove, Update, Refactor, Fix)
@@ -93,7 +93,7 @@ feature/#123 Add specific file needed to app
 Signed-off-by: "YourName" "yourEmail@mail.com"
 ```
 
-#### <a name="install-apps"></a> Install apps
+### <a name="install-apps"></a> Install apps
 
 **Note:** All install tasks, chid will always ask if you really want to install it. Also 
 will install the dependencies if necessary.
@@ -104,22 +104,22 @@ will install the dependencies if necessary.
 * `$ chid install rvm` - Install stable RVM version
 * `$ chid install vim and/or gvim` - Install Vim
 
-#### <a name="run"></a> Run
+### <a name="run"></a> Run
 
 * `run postgres` - Run the postgresql if you already have installed.
 
-#### <a name="currency"></a> Currency
+### <a name="currency"></a> Currency
 
 * `$ chid currency now` - Get the now converstion. Default -from USD -to BRL
 * `$ chid currency list` - All list of available Source to use on `now` and `convert commands`
 * `$ chid currency convert -amount [amount]` - You can convert an amount between types. Default -to BRL, -from USD 
 
-#### <a name="news"></a> News
+### <a name="news"></a> News
 
 * `$ chid news` - Will show all news from some sites. BBC news, CNN, Espn, 
 Mashable, Google, Techcrunch, Reddit
 
-#### <a name="search-on-stackOverflow"></a> Search on StackOverflow
+### <a name="search-on-stackOverflow"></a> Search on StackOverflow
 
 
 A simple search in StackOverflow 
@@ -131,13 +131,13 @@ text.
   <img src="etc/img/stack.png" alt="stack sample" />
 </p>
 
-#### <a name="search-gitHub-repositories"></a> Search GitHub repositories
+### <a name="search-gitHub-repositories"></a> Search GitHub repositories
 
 A simple search for repository name
 
 * `$ chid github -name [SEARCH_EXPRESSION]` - Show results for expression paginated every 10
     
-#### <a name="workstations"></a> Workstations
+### <a name="workstations"></a> Workstations
 
 Workstations are a way to make it easy for you to open a set of applications by 
 simple commands.
