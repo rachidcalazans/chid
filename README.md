@@ -2,7 +2,7 @@
 Chid is an assistant to help your day-to-day life. It can be used in some 
 installations, news, configurations, workstations and more.
 
-![](http://g.recordit.co/pKS2oKCUuU.gif)
+![](https://user-images.githubusercontent.com/47482049/67632355-199ecb80-f89a-11e9-879e-32a0987108ca.gif)
 
 ## Installation
 
@@ -128,9 +128,7 @@ A simple search in StackOverflow
 * `$ chid stack -search [TEXT_TO_SEACH]` - Will search on StackOverflow all results for that 
 text.
 
-<p align="left">
-  <img src="etc/img/stack.png" alt="stack sample" />
-</p>
+![stackchid](https://user-images.githubusercontent.com/47482049/67722187-5c62bf80-f9d0-11e9-9921-86d2b548cc97.gif)
 
 ### <a name="search-gitHub-repositories"></a> Search GitHub repositories
 
@@ -159,7 +157,7 @@ choose one of them to open all applications
 from a list. Eg.: `$ chid workstation open -name base` - It will open all applications inside the 
 **base** workstation
 
-![](http://g.recordit.co/WFqNuxORRd.gif)
+![workstationchid](https://user-images.githubusercontent.com/47482049/67722314-b794b200-f9d0-11e9-81cd-1e7b0b27bedf.gif)
 
 **Note:** For linux users the `$chid workstation create` is not working. You need create 
 manually (editing the .chid.config file). Will be explained how on
@@ -240,13 +238,12 @@ To add a new *workstation* you can edit like:
     - Slack
   :tmux_templates: {}
 ```
+![configchid](https://user-images.githubusercontent.com/47482049/67722353-d2672680-f9d0-11e9-8c52-8dad5d2ad22f.gif)
 
 After edit you can open the **base** workstation running:
 
 * `$ chid workstation open -name base`
 * `$ chid workstation open -n base`
-
-![](http://g.recordit.co/VqTjUsQ9fy.gif)
 
 #### Advance configuration
 
@@ -267,6 +264,4 @@ Is possible you can customize some options with each Application when will open 
     # in a specific URL
   :tmux_templates: {}
 ```
-
-![](http://g.recordit.co/40rFYBBR1t.gif)
 
