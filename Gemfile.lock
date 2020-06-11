@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    chid (0.1.6.2)
+    chid (0.2.1)
       http
       tty-prompt
 
@@ -15,25 +15,31 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     equatable (0.6.1)
-    http (4.1.1)
+    ffi (1.13.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (2.1.1)
-    http_parser.rb (0.6.0)
+    http-form_data (2.3.0)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
     method_source (0.8.2)
-    necromancer (0.5.0)
-    pastel (0.7.3)
+    necromancer (0.5.1)
+    pastel (0.7.4)
       equatable (~> 0.6)
       tty-color (~> 0.5)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    public_suffix (4.0.1)
+    public_suffix (4.0.5)
+    rake (13.0.1)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -48,21 +54,21 @@ GEM
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
     slop (3.6.0)
-    tty-color (0.5.0)
-    tty-cursor (0.7.0)
-    tty-prompt (0.19.0)
+    tty-color (0.5.1)
+    tty-cursor (0.7.1)
+    tty-prompt (0.21.0)
       necromancer (~> 0.5.0)
       pastel (~> 0.7.0)
-      tty-reader (~> 0.6.0)
-    tty-reader (0.6.0)
+      tty-reader (~> 0.7.0)
+    tty-reader (0.7.0)
       tty-cursor (~> 0.7)
       tty-screen (~> 0.7)
       wisper (~> 2.0.0)
-    tty-screen (0.7.0)
+    tty-screen (0.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
-    wisper (2.0.0)
+    unf_ext (0.0.7.7)
+    wisper (2.0.1)
 
 PLATFORMS
   ruby
@@ -73,4 +79,4 @@ DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   1.17.2
+   2.1.4
