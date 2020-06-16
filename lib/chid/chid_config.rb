@@ -2,9 +2,9 @@ class ChidConfig
 
   attr_reader :chid_path, :home_path, :chid_config_path
 
-  def initialize
+  def initialize(home_base_path: "~/")
     @chid_path = Dir.pwd
-    @home_path = File.expand_path("~/")
+    @home_path = File.expand_path(home_base_path)
     @chid_config_path = File.join(home_path, '.chid.config')
   end
 

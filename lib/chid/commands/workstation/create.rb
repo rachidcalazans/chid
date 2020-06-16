@@ -19,10 +19,10 @@ Usage:
       $ chid workstation list
 
         DESC
-        self.arguments = []
+        self.arguments = ['-name']
 
         def run
-          workstation_name = get_workstation_name 
+          workstation_name = get_workstation_name
           result           = ::ChidConfig.on_osx { select_apps_on_osx }
 
           if result.empty?
@@ -38,9 +38,15 @@ Usage:
         private
 
         def get_workstation_name
+          return option_name if option_name
+
           puts 'tell me the name of the new workstation'
           print "> "
           STDIN.gets.strip
+        end
+
+        def option_name
+          options['-name']&.first&.strip
         end
 
         def chid_config
