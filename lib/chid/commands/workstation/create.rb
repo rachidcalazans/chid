@@ -86,8 +86,14 @@ Usage:
             .flatten
             .each_with_object([])
             .each_with_index do |(choice, memo), index|
-              memo << index + 1 if option_app_names.include?(choice)
+            memo << index + 1 if choice_in_option_app_names?(choice)
           end
+        end
+
+        def choice_in_option_app_names?(choice)
+          DidYouMean::SpellChecker
+            .new(dictionary: option_app_names)
+            .correct(choice).any?
         end
       end
     end
