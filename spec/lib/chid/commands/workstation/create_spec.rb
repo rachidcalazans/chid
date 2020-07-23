@@ -4,9 +4,12 @@ require 'spec_helper'
 # - [OK] Reset support/.chid.config with base template from Init Command or something like that
 # - [OK] Refactor test code
 # - [ ] Add feature to given options and arguments with workstation_name and app_names
-#     - chid workstation create -name tt -apps Safari,iTerm
+#     - chid workstation create -name tt -app_names Safari,iTerm
 #     - [OK] Update test code to reuse setups and contexts
-#     - [ ] Add the app_names option
+#     - [OK] Add the app_names option
+#     - [ ] Fix Bug when the workstation_name has `-`. Eg.: -name tt-maris
+#     - [ ] Fix Bug when the app_names has empty space. Eg.: -name ttmaris -app_names AdBlock Alfred 4
+#           - It works when the app_name with space use ''. Eg.: -name ttmaris -app_names AdBlock 'Alfred 4'
 #
 
 describe ::Chid::Commands::Workstation::Create do
@@ -84,6 +87,28 @@ describe ::Chid::Commands::Workstation::Create do
               result    = yaml_file.dig(:chid, :workstations, :tt5)
 
               expect(result).to eq %w[Safari]
+            end
+
+            context 'when given app_names option' do
+              let(:app_names) { %w[Safari iTerm] }
+              let(:options)   { ['-name', workstation_name, '-app_names'].concat(app_names) }
+              let(:set_multi_select_option) do
+                ask_msg = 'select all apps for that workstation?'
+                os_app_names = ['1Password 7', 'Accelerate', 'Safari', 'iTerm']
+
+                allow_any_instance_of(::Chid::Commands::Workstation::Create).to receive(:osx_application_names).and_return [os_app_names]
+
+                allow_any_instance_of(TTY::Prompt).to receive(:multi_select)
+                  .with(ask_msg, [os_app_names], default: [3,4])
+                  .and_return(app_names)
+              end
+
+              it 'add all new options on .chid.config file' do
+                yaml_file = load_chid_config_as_yaml
+                result    = yaml_file.dig(:chid, :workstations, :tt5)
+
+                expect(result).to eq %w[Safari iTerm]
+              end
             end
           end
         end

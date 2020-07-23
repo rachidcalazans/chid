@@ -14,12 +14,14 @@ Usage:
 
     Create a new workstation with the selected apps.
 
+    # @todo - Add description to use with new arguments
+
     To see all workstations you can run
 
       $ chid workstation list
 
         DESC
-        self.arguments = ['-name']
+        self.arguments = ['-name', '-app_names']
 
         def run
           workstation_name = get_workstation_name
@@ -49,6 +51,10 @@ Usage:
           options['-name']&.first&.strip
         end
 
+        def option_app_names
+          options['-app_names']
+        end
+
         def chid_config
           ::ChidConfig.new
         end
@@ -56,12 +62,32 @@ Usage:
         def select_apps_on_osx
           prompt = TTY::Prompt.new
 
-          choices = %x{ls /applications}.strip
-          choices = choices
+          choices = osx_application_names
+
+          default_choices = default_choices(choices)
+
+          prompt.multi_select('select all apps for that workstation?', choices, default: default_choices)
+        end
+
+
+        def osx_application_names
+          osx_application_names = %x{ls /applications}.strip
+
+          osx_application_names
             .gsub(/\n/, ' - ')
             .gsub('.app', '')
             .split(' - ')
-          prompt.multi_select('select all apps for that workstation?', choices)
+        end
+
+        def default_choices(choices)
+          return unless option_app_names
+
+          choices
+            .flatten
+            .each_with_object([])
+            .each_with_index do |(choice, memo), index|
+              memo << index + 1 if option_app_names.include?(choice)
+          end
         end
       end
     end
