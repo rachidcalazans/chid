@@ -70,7 +70,7 @@ Commands:
       private
 
       def arg_is_an_option?(arg)
-        arg.include?('-')
+        arg.start_with?('-')
       end
 
       def options_with_values(options, arg)

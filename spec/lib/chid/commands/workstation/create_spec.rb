@@ -7,9 +7,7 @@ require 'spec_helper'
 #     - chid workstation create -name tt -app_names Safari,iTerm
 #     - [OK] Update test code to reuse setups and contexts
 #     - [OK] Add the app_names option
-#     - [ ] Fix Bug when the workstation_name has `-`. Eg.: -name tt-maris
-#     - [ ] Fix Bug when the app_names has empty space. Eg.: -name ttmaris -app_names AdBlock Alfred 4
-#           - It works when the app_name with space use ''. Eg.: -name ttmaris -app_names AdBlock 'Alfred 4'
+#     - [OK] Fix Bug when the workstation_name has `-`. Eg.: -name tt-maris
 #     - [ ] Add description to use with new arguments
 #
 
@@ -88,6 +86,18 @@ describe ::Chid::Commands::Workstation::Create do
               result    = yaml_file.dig(:chid, :workstations, :tt5)
 
               expect(result).to eq %w[Safari]
+            end
+
+            context 'when workstation name has `-` in the name' do
+              let(:workstation_name) { 'tt5-5' }
+              let(:set_get_option)   {}
+
+              it 'add the new workstation name with choosen app on .chid.config file' do
+                yaml_file = load_chid_config_as_yaml
+                result    = yaml_file.dig(:chid, :workstations, :'tt5-5')
+
+                expect(result).to eq %w[Safari]
+              end
             end
 
             context 'when given app_names option' do
