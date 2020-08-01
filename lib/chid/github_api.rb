@@ -26,6 +26,15 @@ class GitHubApi
     end
   end
 
+  def self.prs(by:)
+    owner     = 'rachidcalazans'
+    repo_name = 'chid'
+    uri = URI("https://api.github.com/repos/#{owner}/#{repo_name}/pulls")
+    request = ::HTTP.get(uri)
+
+    JSON.parse request
+  end
+
   def self.repositories(search_expression)
       uri = URI("https://api.github.com/search/repositories?q=#{search_expression}&sort=stars&order=desc")
       request = ::HTTP.get(uri)
