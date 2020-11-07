@@ -1,5 +1,5 @@
 # Chid
-Chid is an assistant to help your day-to-day life. It can be used in some 
+Chid is an assistant to help your day-to-day life. It can be used in some
 installations, news, configurations, workstations and more.
 
 ![](https://user-images.githubusercontent.com/47482049/67632355-199ecb80-f89a-11e9-879e-32a0987108ca.gif)
@@ -96,10 +96,10 @@ Signed-off-by: "YourName" "yourEmail@mail.com"
 
 ### <a name="install-apps"></a> Install apps
 
-**Note:** All install tasks, chid will always ask if you really want to install it. Also 
+**Note:** All install tasks, chid will always ask if you really want to install it. Also
 will install the dependencies if necessary.
 
-* `$ chid install dotfiles` - Install [YADR Dotfiles](https://github.com/skwp/dotfiles)
+* `$ chid install dotfiles` - Install my own dotfiles for vim, zsh and tmux
 * `$ chid install node` - Install Node
 * `$ chid install postgres` - Install Postgres
 * `$ chid install rvm` - Install stable RVM version
