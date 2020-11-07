@@ -25,12 +25,20 @@ Usage:
           is_gvim = do_gvim?
 
           ::ChidConfig.on_linux do
-            system('sudo apt-get install vim') if is_vim
+            system('sudo apt update')
+
+            if is_vim
+              system('sudo add-apt-repository ppa:jonathonf/vim')
+              system('sudo apt update')
+              system('sudo apt install vim')
+            end
+
             system('sudo apt-get install vim-gnome') if is_gvim
           end
 
           ::ChidConfig.on_osx do
-            system('brew install vim && brew install macvim')
+            system('brew update')
+            system('brew install vim')
           end
 
           puts "\nVim installed successfully" if is_vim

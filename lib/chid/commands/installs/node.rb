@@ -23,10 +23,12 @@ Usage:
           puts "\nInstalling the Node..."
 
           ::ChidConfig.on_linux do
-            system('sudo apt-get install nodejs')
+            system('sudo apt update')
+            system('sudo apt install nodejs')
           end
 
           ::ChidConfig.on_osx do
+            system('brew update')
             system('brew install node')
           end
 

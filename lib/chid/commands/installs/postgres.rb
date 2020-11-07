@@ -25,10 +25,13 @@ Usage:
           puts "\nInstalling the Postgres..."
 
           ::ChidConfig.on_linux do
-            system('sudo apt-get install postgresql postgresql-contrib')
+            system('sudo apt update')
+            system('sudo apt install postgresql postgresql-contrib')
+            system('sudo apt-get install libpq-dev')
           end
 
           ::ChidConfig.on_osx do
+            system('brew update')
             system('brew install postgres')
           end
 
