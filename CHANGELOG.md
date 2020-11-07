@@ -1,3 +1,9 @@
+### 0.2.2
+
+* Update:
+  - Install Commands
+  - Replace old dotfiles for Chid files config ofr zsh, vimrc and tmux
+
 ### 0.2.1
 
 * Update:  
